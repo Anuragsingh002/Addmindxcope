@@ -15,6 +15,9 @@
   <!-- Swiper Slider -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
+  <!-- Lottie Player Script -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
   <style>
     * {
       margin: 0;
@@ -54,29 +57,6 @@
     nav a:hover,
     nav a.active {
       color: #facc15;
-    }
-
-    .hero {
-      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1600267165780-00b66b674d80?auto=format&fit=crop&w=1400&q=80') no-repeat center center/cover;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      padding: 0 20px;
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-
-    .hero p {
-      font-size: 1.4rem;
-      max-width: 700px;
     }
 
     .section {
@@ -176,10 +156,24 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <div>
-      <h1>Your Mind is the Resume</h1>
-      <p>Experience hiring redefined through brain-computer interface and AI-driven behavioral intelligence.</p>
+  <!-- Updated Hero Section with Lottie -->
+  <section class="hero" style="position: relative; overflow: hidden; height: 100vh; text-align: center;">
+    <lottie-player
+      src="https://lottie.host/39d03c5e-7ad6-4ae8-9f31-62374d6f2ae2/XFcG8QG6Jl.json"
+      background="transparent"
+      speed="1"
+      loop
+      autoplay
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+    </lottie-player>
+
+    <div style="position: relative; z-index: 1; color: white; padding: 0 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+      <h1 style="font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; text-transform: uppercase;">
+        Your Mind is the Resume
+      </h1>
+      <p style="font-size: 1.4rem; max-width: 700px;">
+        Experience hiring redefined through brain-computer interface and AI-driven behavioral intelligence.
+      </p>
     </div>
   </section>
 
@@ -206,70 +200,60 @@
     </div>
   </section>
 
-<!-- Gallery Section -->
-<section id="gallery" class="section">
-  <h2>Inside the Mindxcope Experience</h2>
-  <div class="swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="https://shorturl.at/YHxsp" /></div>
-      <div class="swiper-slide"><img src="https://shorturl.at/SnwS6" /></div>
-      <div class="swiper-slide"><img src="https://shorturl.at/aTOCR" /></div>
+  <section id="gallery" class="section">
+    <h2>Inside the Mindxcope Experience</h2>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://shorturl.at/YHxsp" /></div>
+        <div class="swiper-slide"><img src="https://shorturl.at/SnwS6" /></div>
+        <div class="swiper-slide"><img src="https://shorturl.at/aTOCR" /></div>
+      </div>
     </div>
-  </div>
-</section>
-
-<!-- YouTube Video Section -->
-<!-- YouTube Video Section -->
-<section id="video-demo" class="section" style="background: #ffffffeb;">
-  <h2 style="color: #1e3a8a; margin-bottom: 1rem;">How Brain-Computer Interfaces Work</h2>
-  <p style="max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem;">
-    Discover how EEG and cognitive data are used to measure attention, memory, and creativity—the foundation of Mindxcope.
-  </p>
-
-  <!-- First Video -->
-  <div style="width: 100%; max-width: 640px; aspect-ratio: 16/9; margin: 0 auto 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
-    <iframe 
-      src="https://www.youtube.com/embed/XiwriW1ET-c" 
-      title="Brain-Computer Interfaces in Action"
-      style="width: 100%; height: 100%; border: none;" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-      allowfullscreen>
-    </iframe>
-  </div>
-
-  <!-- Second Video -->
-  <div style="width: 100%; max-width: 640px; aspect-ratio: 16/9; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
-    <iframe 
-      src="https://www.youtube.com/embed/qKxiYqtVsaY" 
-      title="Scientists Scan My Brain to See If I'm a Genius"
-      style="width: 100%; height: 100%; border: none;" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-      allowfullscreen>
-    </iframe>
-  </div>
-</section>
-
-
-<!-- Report Preview Section -->
-  <div class="feature-grid">
-  <section id="demo-report" style="padding: 1.5rem 0; text-align: center;">
-    <h2 style="font-size: 1.75rem; color: #ffffff; margin-bottom: 0.85rem; font-weight: 700;">
-      Sample Report
-    </h2>
-
-    <img
-      src="demo.png"
-      alt="MindXcope Report Preview"
-      style="width: 360px; height: auto; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.12);"
-      loading="lazy"
-    />
-
-    <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.85rem; max-width: 320px; margin-inline: auto;">
-      A real preview of how MindXcope analyzes cognitive data to generate a report.
-    </p>
   </section>
-</div>
 
+  <section id="video-demo" class="section" style="background: #ffffffeb;">
+    <h2 style="color: #1e3a8a; margin-bottom: 1rem;">How Brain-Computer Interfaces Work</h2>
+    <p style="max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem;">
+      Discover how EEG and cognitive data are used to measure attention, memory, and creativity—the foundation of Mindxcope.
+    </p>
+
+    <div style="width: 100%; max-width: 640px; aspect-ratio: 16/9; margin: 0 auto 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
+      <iframe 
+        src="https://www.youtube.com/embed/XiwriW1ET-c" 
+        title="Brain-Computer Interfaces in Action"
+        style="width: 100%; height: 100%; border: none;" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div style="width: 100%; max-width: 640px; aspect-ratio: 16/9; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
+      <iframe 
+        src="https://www.youtube.com/embed/qKxiYqtVsaY" 
+        title="Scientists Scan My Brain to See If I'm a Genius"
+        style="width: 100%; height: 100%; border: none;" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <div class="feature-grid">
+    <section id="demo-report" style="padding: 1.5rem 0; text-align: center;">
+      <h2 style="font-size: 1.75rem; color: #ffffff; margin-bottom: 0.85rem; font-weight: 700;">
+        Sample Report
+      </h2>
+      <img
+        src="demo.png"
+        alt="MindXcope Report Preview"
+        style="width: 360px; height: auto; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.12);"
+        loading="lazy"
+      />
+      <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.85rem; max-width: 320px; margin-inline: auto;">
+        A real preview of how MindXcope analyzes cognitive data to generate a report.
+      </p>
+    </section>
+  </div>
 
   <section id="contact" class="section">
     <h2>Connect with Us</h2>
@@ -284,8 +268,6 @@
   <footer>
     &copy; 2025 Mindxcope. All rights reserved.<br>Developed by Anurag</br>
   </footer>
-  
-
 
   <button onclick="scrollToTop()" id="topBtn">↑ Top</button>
 
@@ -313,5 +295,6 @@
   </script>
 </body>
 </html>
+
 
 
