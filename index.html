@@ -242,7 +242,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             transition: box-shadow 0.5s ease;
             max-width: 400px; /* Added to reduce size */
-            margin: 0 auto;   /* Added to center */
+            margin: 0 auto;    /* Added to center */
             will-change: transform; /* Added for performance */
             transform-style: preserve-3d; /* Added for 3D effect */
         }
@@ -305,6 +305,12 @@
         /* CTA Section */
         #cta .container { text-align: center; }
         #cta h2 { margin-bottom: 20px; }
+
+        /* --- THIS IS THE NEW CSS RULE --- */
+        #cta p {
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         /* Footer */
         footer {
@@ -416,6 +422,7 @@
                             <h3>4. Real-Time Mental Fatigue Monitoring</h3>
                             <p>We continuously track cognitive load and fatigue signals — allowing employers to detect burnout risk, monitor attention span, and ensure peak performance zones in both hiring and workforce development.</p>
                         </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -450,48 +457,43 @@
         </section>
 
        <section id="research">
-  <div class="container">
-    <h2 class="section-title">Our Research</h2>
-    <div class="research-grid">
+     <div class="container">
+       <h2 class="section-title">Our Research</h2>
+       <div class="research-grid">
 
-      <!-- Research Card 1 -->
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11506513/" class="research-card tilt-card" target="_blank">
-        <h3>A Cross-Disciplinary Review of the fNIRS–EEG</h3>
-        <p>A Cross-Disciplinary Review of the fNIRS–EEG Dual-Modality Imaging System for Delivering Multimodal Neuroimaging to Applications</p>
-        <p style="margin-top: 12px;"><span style="font-weight:bold; color:#00f0ff;">Read Paper</span></p>
-      </a>
-      <!-- Research Card 2 -->
-      <a href="https://www.researchgate.net/publication/340009369_Toward_a_compact_hybrid_brain–computer_interface_BCI_Performance_evaluation_of_multi-class_EEG–fNIRS_BCIs" class="research-card tilt-card" target="_blank">
-        <h3>Toward a compact hybrid BCI</h3>
-        <p>This paper explores the performance evaluation of multi-class hybrid EEG–fNIRS BCIs with limited number of channels.</p>
-          <p style="margin-top: 12px;"><span style="font-weight:bold; color:#00f0ff;">Read Paper</span></p>
-      </a>
-      <!-- Research Card 3 -->
-      <a href="https://www.igi-global.com/chapter/enhancing-recruitment-processes-with-brain–computer-interface–applications/380335" class="research-card tilt-card" target="_blank">
-        <h3>Enhancing Recruitment Processes With Brain–Computer Interface Applications</h3>
-        <p>Identifying the unique brainwave patterns associated with peak performance and the state of "flow" during cognitive tasks.</p>
-         <p style="margin-top: 12px;"><span style="font-weight:bold; color:#00f0ff;">Read Paper</span></p>
+         <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11506513/" class="research-card tilt-card" target="_blank">
+           <h3>A Cross-Disciplinary Review of the fNIRS–EEG</h3>
+           <p>A Cross-Disciplinary Review of the fNIRS–EEG Dual-Modality Imaging System for Delivering Multimodal Neuroimaging to Applications</p>
+           <p style="margin-top: 12px;"><span style="font-weight:bold; color:#00f0ff;">Read Paper</span></p>
+         </a>
+         <a href="https://www.researchgate.net/publication/340009369_Toward_a_compact_hybrid_brain–computer_interface_BCI_Performance_evaluation_of_multi-class_EEG–fNIRS_BCIs" class="research-card tilt-card" target="_blank">
+           <h3>Toward a compact hybrid BCI</h3>
+           <p>This paper explores the performance evaluation of multi-class hybrid EEG–fNIRS BCIs with limited number of channels.</p>
+            <p style="margin-top: 12px;"><span style="font-weight:bold; color:#00f0ff;">Read Paper</span></p>
+         </a>
+         <a href="https://www.igi-global.com/chapter/enhancing-recruitment-processes-with-brain–computer-interface–applications/380335" class="research-card tilt-card" target="_blank">
+           <h3>Enhancing Recruitment Processes With Brain–Computer Interface Applications</h3>
+           <p>Identifying the unique brainwave patterns associated with peak performance and the state of "flow" during cognitive tasks.</p>
+           <p style="margin-top: 12px;"><span style="font-weight:bold; color:#00f0ff;">Read Paper</span></p>
 
-      </a>
-    </div>
-  </div>
-</section>
-     <section id="cta"> <div class="container" style="text-align: center;"> 
-         <h2 class="section-title">Your Mind is the Resume.</h2>
-         <p>                                                Experience hiring redefined through brain–computer interface and AI-driven behavioral intelligence.</p>
-         <br> 
-         <a href="https://www.linkedin.com/company/mindxcope/" class="cta-button">Connect with us</a> 
+         </a>
+       </div>
      </div>
-     </section>
-    </a>
-  </div>
-</section>
+    </section>
 
+    <section id="cta"> 
+      <div class="container" style="text-align: center;"> 
+        <h2 class="section-title">Your Mind is the Resume.</h2>
+        <p>Experience hiring redefined through brain–computer interface and AI-driven behavioral intelligence.</p>
+        <br> 
+        <a href="https://www.linkedin.com/company/mindxcope/" class="cta-button">Connect with us</a> 
+      </div>
+    </section>
 
     </main>
 
     <footer>
-        <p>                                                       &copy;2025 Mindxcope. All Rights Reserved.</p>
+        <p>&copy;2025 Mindxcope. All Rights Reserved.</p>
     </footer>
 
 
