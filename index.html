@@ -306,7 +306,7 @@
         #cta .container { text-align: center; }
         #cta h2 { margin-bottom: 20px; }
 
-        /* --- THIS IS THE NEW CSS RULE --- */
+        /* --- THIS IS THE CSS RULE FOR CENTERING THE PARAGRAPH --- */
         #cta p {
             margin-left: auto;
             margin-right: auto;
@@ -327,6 +327,89 @@
             z-index: 2;
             pointer-events: none;
             filter: brightness(0.7) contrast(1.2);
+        }
+
+
+        /* ======================================= */
+        /* --- MOBILE RESPONSIVE STYLES --- */
+        /* ======================================= */
+
+        @media (max-width: 768px) {
+
+            /* 1. Makes the header stack vertically */
+            header {
+                position: static; /* Un-fixes the header so it scrolls */
+                flex-direction: column; /* Stacks logo, nav, and button */
+                padding: 20px;
+                gap: 15px; /* Adds space between the stacked items */
+                
+                /* Removes desktop-only background effects */
+                background: #010416; 
+                backdrop-filter: none;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column; /* Stacks nav links vertically */
+                align-items: center;
+                width: 100%;
+            }
+
+            .nav-links a {
+                margin: 8px 0; /* Gives vertical space */
+                margin-left: 0; /* Resets the desktop horizontal margin */
+            }
+
+            /* 2. Fixes the hero section layout */
+            #hero {
+                 min-height: auto; /* Lets content define the height */
+                 align-items: center; 
+            }
+            
+            #hero .container {
+                display: flex;
+                justify-content: center; /* Centers the content box */
+                padding: 80px 0; /* Resets padding */
+            }
+
+            .hero-content {
+                max-width: 100%; /* Lets content use the full width */
+                text-align: center;  /* Centers the h1 and p text */
+            }
+            
+            .hero-content p {
+                margin-left: auto; /* Ensures the paragraph block is centered */
+                margin-right: auto;
+            }
+            
+            /* 3. Stacks the "How It Works" section */
+            .process-step, 
+            .process-step:nth-child(even) {
+                flex-direction: column; /* Stacks icon on top of text */
+                text-align: center;
+            }
+
+            .step-icon {
+                margin: 0 0 20px 0; /* Removes side margin, adds bottom margin */
+            }
+
+            /* 4. General cleanup for small screens */
+            .container {
+                padding: 80px 0; /* Reduces large padding */
+            }
+            
+            #hero .container {
+                 padding: 80px 0; /* Specific padding for hero */
+            }
+
+            h2 {
+                margin-bottom: 40px; /* Reduces space below titles */
+            }
+            
+            /* 5. Hides distracting floating images on mobile */
+            .floating-image {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -522,8 +605,12 @@
         function connectParticles() { let opacityValue = 1; for (let a = 0; a < particles.length; a++) { for (let b = a; b < particles.length; b++) { let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x)) + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y)); if (distance < (width/7) * (height/7)) { opacityValue = 1 - (distance/20000); ctx.strokeStyle = `rgba(0, 255, 255, ${opacityValue})`; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke(); } } } }
         window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
         window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; initParticles(); });
-        initParticles();
-        animateParticles();
+        
+        // Only run particle animation if canvas exists
+        if (canvas) {
+            initParticles();
+            animateParticles();
+        }
 
         // --- GSAP Animations ---
         gsap.from("header", { y: '-100%', duration: 1.5, ease: "power4.out", delay: 0.5 });
@@ -550,41 +637,44 @@
         });
 
         const tiltCards = document.querySelectorAll(".tilt-card");
-        tiltCards.forEach(card => {
-            const tiltStrength = 15;
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const cardWidth = rect.width;
-                const cardHeight = rect.height;
-                const centerX = rect.left + cardWidth / 2;
-                const centerY = rect.top + cardHeight / 2;
-                const mouseX = e.clientX - centerX;
-                const mouseY = e.clientY - centerY;
-                const rotateY = (mouseX / (cardWidth / 2)) * tiltStrength;
-                const rotateX = -(mouseY / (cardHeight / 2)) * tiltStrength;
-                gsap.to(card, {
-                    rotationX: rotateX,
-                    rotationY: rotateY,
-                    transformPerspective: 1000,
-                    scale: 1.05,
-                    ease: "power2.out",
-                    duration: 0.8
-                });
-            });
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card, {
-                    rotationX: 0,
-                    rotationY: 0,
-                    scale: 1,
-                    ease: "power2.out",
-                    duration: 1
-                });
-            });
-        });
-
-        gsap.utils.toArray('.process-step').forEach(step => { gsap.fromTo(step, { opacity: 0, x: step.classList.contains('even') ? 100 : -100 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: step, start: "top 80%", toggleActions: "play none none reverse" } }); });
         
-        // This animation now correctly targets the platform preview image as well
+        // Only run tilt effect on non-touch devices
+        if (window.matchMedia('(pointer: fine)').matches) {
+            tiltCards.forEach(card => {
+                const tiltStrength = 15;
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const cardWidth = rect.width;
+                    const cardHeight = rect.height;
+                    const centerX = rect.left + cardWidth / 2;
+                    const centerY = rect.top + cardHeight / 2;
+                    const mouseX = e.clientX - centerX;
+                    const mouseY = e.clientY - centerY;
+                    const rotateY = (mouseX / (cardWidth / 2)) * tiltStrength;
+                    const rotateX = -(mouseY / (cardHeight / 2)) * tiltStrength;
+                    gsap.to(card, {
+                        rotationX: rotateX,
+                        rotationY: rotateY,
+                        transformPerspective: 1000,
+                        scale: 1.05,
+                        ease: "power2.out",
+                        duration: 0.8
+                    });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        rotationX: 0,
+                        rotationY: 0,
+                        scale: 1,
+                        ease: "power2.out",
+                        duration: 1
+                    });
+                });
+            });
+        }
+
+        gsap.utils.toArray('.process-step').forEach(step => { gsap.fromTo(step, { opacity: 0, x: (window.innerWidth > 768 && step.classList.contains('even')) ? 100 : -100 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: step, start: "top 80%", toggleActions: "play none none reverse" } }); });
+        
         gsap.from(".platform-preview", {
             scrollTrigger: { trigger: "#platform", start: "top 80%" },
             opacity: 0, y: 60, scale: 0.95, duration: 1, ease: "power3.out"
