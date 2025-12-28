@@ -17,6 +17,7 @@
                     colors: {
                         cyan: { 400: '#22d3ee', 500: '#06b6d4', 950: '#083344' },
                         amber: { 500: '#f59e0b', 600: '#d97706', 900: '#78350f' },
+                        rose: { 500: '#f43f5e', 900: '#881337' },
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -25,6 +26,7 @@
                     animation: {
                         'spin-slow': 'spin 12s linear infinite',
                         'scan': 'scan 4s linear infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         scan: {
@@ -97,11 +99,11 @@
                     <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="#technology" class="text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors relative group">
-                    <span class="relative z-10">Technology</span>
+                    <span class="relative z-10">Multi-Modal Tech</span>
                     <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="#solutions" class="text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors relative group">
-                    <span class="relative z-10">Solutions</span>
+                    <span class="relative z-10">Corporate Use</span>
                     <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="#gene-ops" class="text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors relative group">
@@ -147,20 +149,19 @@
                     <div class="flex items-center gap-4 mb-8 reveal active">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-cyan-500/30 bg-cyan-950/10 shadow-[0_0_10px_rgba(6,182,212,0.2)] backdrop-blur-md">
                             <div class="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></div>
-                            <span class="font-mono text-[10px] tracking-widest uppercase text-cyan-500">Neuro-Link Established</span>
+                            <span class="font-mono text-[10px] tracking-widest uppercase text-cyan-500">Multi-Modal Fusion</span>
                         </div>
                         <span class="text-[10px] font-mono text-neutral-600 uppercase tracking-widest">Build 2025.4.1</span>
                     </div>
                     
                     <h1 class="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-white leading-[0.9] mb-8">
-                        <!-- Scramble Effect Target -->
                         <span class="block text-neutral-500 scramble-text" data-text="DECODING">DECODING</span>
                         <span class="block text-white">HUMAN</span>
                         <span class="block bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500 font-medium">COGNITION</span>
                     </h1>
                     
                     <p class="text-lg text-neutral-400 max-w-xl leading-relaxed mb-10 border-l-2 border-white/10 pl-6 bg-black/20 backdrop-blur-sm p-4 rounded-r-lg">
-                        The world's first platform fusing <strong>AI, Neuroscience, and BCI</strong> to measure and enhance cognitive performance.
+                        The ultimate cognitive intelligence platform fusing <strong>EEG, fNIRS, Eye Tracking, and Behavioral Dynamics</strong> to track mental fatigue and performance in real-time.
                     </p>
 
                     <div class="flex flex-wrap gap-4">
@@ -168,7 +169,7 @@
                             Initialize Demo <i data-lucide="chevron-right" class="w-4 h-4"></i>
                         </button>
                         <button class="px-8 py-4 bg-transparent border border-white/20 text-white font-mono text-xs uppercase tracking-widest hover:bg-white/5 hover:border-white/40 transition-all">
-                            Read Whitepaper
+                            View Tech Stack
                         </button>
                     </div>
                 </div>
@@ -180,29 +181,33 @@
                         <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="activity" class="text-cyan-400 w-4 h-4"></i>
-                                <span class="text-xs font-mono font-bold text-white tracking-widest">LIVE CORTEX FEED</span>
+                                <span class="text-xs font-mono font-bold text-white tracking-widest">LIVE FATIGUE TRACKER</span>
                             </div>
-                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_red]"></span>
+                            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse-fast shadow-[0_0_10px_#f43f5e]"></span>
                         </div>
 
                         <div class="space-y-1">
                             <div class="flex justify-between items-center font-mono text-xs border-b border-white/5 py-2">
-                                <span class="text-neutral-500">ALPHA WAVES</span>
-                                <div class="flex items-center gap-2"><span class="text-cyan-400">10.4</span> <span class="text-neutral-600">Hz</span></div>
+                                <span class="text-neutral-500">MENTAL FATIGUE</span>
+                                <div class="flex items-center gap-2"><span class="text-rose-500">CRITICAL</span> <span class="text-neutral-600">92%</span></div>
                             </div>
                             <div class="flex justify-between items-center font-mono text-xs border-b border-white/5 py-2">
-                                <span class="text-neutral-500">BETA WAVES</span>
-                                <div class="flex items-center gap-2"><span class="text-cyan-400">22.1</span> <span class="text-neutral-600">Hz</span></div>
+                                <span class="text-neutral-500">GSR STRESS (MOUSE)</span>
+                                <div class="flex items-center gap-2"><span class="text-cyan-400">HIGH</span> <span class="text-neutral-600"></span></div>
                             </div>
                             <div class="flex justify-between items-center font-mono text-xs border-b border-white/5 py-2">
-                                <span class="text-neutral-500">COGNITIVE LOAD</span>
-                                <div class="flex items-center gap-2"><span class="text-cyan-400">84</span> <span class="text-neutral-600">%</span></div>
+                                <span class="text-neutral-500">EYE BLINK RATE</span>
+                                <div class="flex items-center gap-2"><span class="text-cyan-400">18</span> <span class="text-neutral-600">/min</span></div>
+                            </div>
+                            <div class="flex justify-between items-center font-mono text-xs border-b border-white/5 py-2">
+                                <span class="text-neutral-500">TYPING JITTER</span>
+                                <div class="flex items-center gap-2"><span class="text-cyan-400">45</span> <span class="text-neutral-600">ms</span></div>
                             </div>
                         </div>
 
                         <!-- Animated Bars Container -->
                         <div id="visualizer-bars" class="mt-6 h-32 border border-white/5 bg-black/50 relative overflow-hidden flex items-end gap-1 px-1 pb-1"></div>
-                        <div class="mt-2 text-[9px] font-mono text-neutral-600 text-center uppercase">Real-time EEG/fNIRS Fusion Processing</div>
+                        <div class="mt-2 text-[9px] font-mono text-neutral-600 text-center uppercase">Sensor Fusion: EEG + fNIRS + Eye + GSR</div>
                     </div>
                 </div>
             </div>
@@ -215,23 +220,13 @@
             <div class="grid md:grid-cols-2 gap-20">
                 <div class="reveal">
                     <div class="mb-16 relative pl-6 border-l border-neutral-800">
-                        <span class="font-mono text-xs text-neutral-500 mb-2 block tracking-[0.2em]">01 // CORE PHILOSOPHY</span>
-                        <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">From Subjective to Objective.</h2>
+                        <span class="font-mono text-xs text-neutral-500 mb-2 block tracking-[0.2em]">01 // FUSION ENGINE</span>
+                        <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">360° Cognitive Awareness.</h2>
                         <div class="h-1 w-20 bg-gradient-to-r from-cyan-600 to-transparent mt-4"></div>
                     </div>
                     <p class="text-xl text-neutral-300 leading-relaxed mb-8">
-                        We are ending the era of guessing. Mindxcope measures the 
-                        <span class="text-cyan-400"> biological substrate</span> of thought.
+                        We don't just look at the brain. We correlate neural activity with <span class="text-cyan-400">physical behavior</span> and <span class="text-cyan-400">physiological stress</span> to create the most accurate model of human performance ever built.
                     </p>
-                    <div class="space-y-8">
-                        <div class="flex gap-4">
-                            <div class="p-3 bg-neutral-900 h-fit rounded-sm"><i data-lucide="brain" class="text-white w-6 h-6"></i></div>
-                            <div>
-                                <h4 class="text-white text-lg font-medium mb-2">The Vision</h4>
-                                <p class="text-neutral-500 leading-relaxed">To become the world’s most trusted authority on cognitive intelligence, enabling data-driven hiring and education.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
                 <div class="reveal delay-200 relative h-full min-h-[400px] border border-white/10 bg-[#060608] flex items-center justify-center overflow-hidden">
@@ -245,7 +240,7 @@
                         </div>
                     </div>
                     <div class="absolute bottom-6 right-6 font-mono text-[10px] text-cyan-800 animate-pulse">
-                        PROCESSING NEURAL VECTORS...
+                        PROCESSING SENSOR FUSION...
                     </div>
                 </div>
             </div>
@@ -257,80 +252,98 @@
         <div class="container mx-auto px-6">
             <div class="mb-16 relative pl-6 border-l border-neutral-800 reveal">
                 <span class="font-mono text-xs text-neutral-500 mb-2 block tracking-[0.2em]">02 // THE STACK</span>
-                <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">Cognitive Engine Architecture.</h2>
+                <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">The 6-Layer Architecture.</h2>
                 <div class="h-1 w-20 bg-gradient-to-r from-cyan-600 to-transparent mt-4"></div>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
+                <!-- Card 1: Neuro-Imaging -->
                 <div class="reveal h-full border border-white/5 bg-white/[0.02] backdrop-blur-md p-8 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500 group relative overflow-hidden">
                     <div class="absolute -right-20 -top-20 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <h3 class="text-xl font-medium text-white mb-6 flex items-center gap-2">
-                        <span class="w-1 h-4 bg-cyan-500 inline-block"></span> Signal Acquisition
+                        <span class="w-1 h-4 bg-cyan-500 inline-block"></span> 1. Neuro-Imaging Core
                     </h3>
                     <ul class="space-y-4 relative z-10">
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-cyan-500"></i> Multi-modal Fusion (EEG + fNIRS)</li>
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-cyan-500"></i> Medical-grade sensors (128ch)</li>
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-cyan-500"></i> Sub-millisecond latency</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-cyan-500"></i> <strong>EEG:</strong> Millisecond-precision electrical activity.</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-cyan-500"></i> <strong>fNIRS:</strong> Prefrontal cortex oxygenation monitoring.</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-cyan-500"></i> <strong>Fusion:</strong> Correlating electrical spark with blood flow.</li>
                     </ul>
                 </div>
-                <!-- Card 2 -->
+                <!-- Card 2: Bio-Peripherals -->
                 <div class="reveal delay-100 h-full border border-white/5 bg-white/[0.02] backdrop-blur-md p-8 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500 group relative overflow-hidden">
                     <div class="absolute -right-20 -top-20 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
                     <h3 class="text-xl font-medium text-white mb-6 flex items-center gap-2">
-                        <span class="w-1 h-4 bg-indigo-500 inline-block"></span> Deep Learning Core
+                        <span class="w-1 h-4 bg-indigo-500 inline-block"></span> 2. Bio-Peripheral Layer
                     </h3>
                     <ul class="space-y-4 relative z-10">
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-indigo-500"></i> Scientific Machine Learning (SciML)</li>
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-indigo-500"></i> Transformer-based Time Series</li>
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-indigo-500"></i> Anomaly Detection Engines</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-indigo-500"></i> <strong>GSR Mouse:</strong> Galvanic Skin Response sensors embedded in hardware to detect stress spikes.</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-indigo-500"></i> <strong>Eye Tracking:</strong> Pupil dilation and gaze fixation analysis.</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-indigo-500"></i> <strong>Keyboard Dynamics:</strong> Typing cadence, jitter, and pressure analysis.</li>
                     </ul>
                 </div>
-                <!-- Card 3 -->
+                <!-- Card 3: Active Layer -->
                 <div class="reveal delay-200 h-full border border-white/5 bg-white/[0.02] backdrop-blur-md p-8 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500 group relative overflow-hidden">
                     <div class="absolute -right-20 -top-20 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all"></div>
                     <h3 class="text-xl font-medium text-white mb-6 flex items-center gap-2">
-                        <span class="w-1 h-4 bg-emerald-500 inline-block"></span> Privacy Layer
+                        <span class="w-1 h-4 bg-emerald-500 inline-block"></span> 3. Active Measurement
                     </h3>
                     <ul class="space-y-4 relative z-10">
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-emerald-500"></i> Edge-Computing (Local Processing)</li>
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-emerald-500"></i> Federated Learning</li>
-                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-emerald-500"></i> GDPR / HIPAA Compliant</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-emerald-500"></i> <strong>Cognitive Games:</strong> Gamified tasks designed to stress-test working memory.</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-emerald-500"></i> <strong>Reaction Tests:</strong> Millisecond-accurate active response logging.</li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-400 group-hover:text-neutral-300"><i data-lucide="chevron-right" class="w-3.5 h-3.5 mt-1 text-emerald-500"></i> <strong>Continuous Auth:</strong> Passive ID verification via behavior.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 9. SOLUTIONS -->
+    <!-- 9. USE CASES (CORPORATE & FATIGUE) -->
     <section id="solutions" class="py-24 bg-neutral-950/90 border-t border-white/5 z-10 relative">
         <div class="container mx-auto px-6">
             <div class="mb-16 relative pl-6 border-l border-neutral-800 reveal">
-                <span class="font-mono text-xs text-neutral-500 mb-2 block tracking-[0.2em]">03 // SOLUTIONS</span>
-                <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">Applied Intelligence.</h2>
+                <span class="font-mono text-xs text-neutral-500 mb-2 block tracking-[0.2em]">03 // ENTERPRISE SOLUTIONS</span>
+                <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">Corporate Intelligence.</h2>
                 <div class="h-1 w-20 bg-gradient-to-r from-cyan-600 to-transparent mt-4"></div>
             </div>
 
-            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-4">
+            <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Use Case 1 -->
                 <div class="reveal delay-0 group h-full p-8 border border-white/5 bg-[#08080a] hover:bg-[#0d0d10] hover:border-cyan-500/30 transition-all duration-300">
-                    <i data-lucide="activity" class="text-neutral-500 mb-6 group-hover:text-cyan-400 transition-colors w-7 h-7"></i>
-                    <h3 class="text-lg font-bold text-white mb-3">Cognitive Assessment</h3>
-                    <p class="text-sm text-neutral-400 leading-relaxed">Real-time state estimation for focus, fatigue, and stress.</p>
+                    <i data-lucide="zap-off" class="text-rose-500 mb-6 group-hover:text-rose-400 transition-colors w-8 h-8"></i>
+                    <h3 class="text-lg font-bold text-white mb-3">Live Mental Fatigue Tracking</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+                        Prevent burnout before it happens. Our algorithms detect the exact moment cognitive resources deplete by correlating blink rates (Eye Tracking) with prefrontal oxygen drops (fNIRS).
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] bg-rose-900/20 text-rose-500 px-2 py-1 border border-rose-900/50">Safety Critical</span>
+                        <span class="text-[10px] bg-neutral-800 text-neutral-400 px-2 py-1 border border-neutral-700">Real-time</span>
+                    </div>
                 </div>
+
+                <!-- Use Case 2 -->
                 <div class="reveal delay-100 group h-full p-8 border border-white/5 bg-[#08080a] hover:bg-[#0d0d10] hover:border-cyan-500/30 transition-all duration-300">
-                    <i data-lucide="scan" class="text-neutral-500 mb-6 group-hover:text-cyan-400 transition-colors w-7 h-7"></i>
-                    <h3 class="text-lg font-bold text-white mb-3">Talent Intelligence</h3>
-                    <p class="text-sm text-neutral-400 leading-relaxed">Bias-free hiring using objective brain-data profiles.</p>
+                    <i data-lucide="bar-chart-3" class="text-cyan-500 mb-6 group-hover:text-cyan-400 transition-colors w-8 h-8"></i>
+                    <h3 class="text-lg font-bold text-white mb-3">Workforce Flow State</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+                        Optimize productivity by identifying "Flow States" using keyboard dynamics and GSR mouse data. Know exactly when your teams are most creative and focused.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] bg-cyan-900/20 text-cyan-500 px-2 py-1 border border-cyan-900/50">Productivity</span>
+                        <span class="text-[10px] bg-neutral-800 text-neutral-400 px-2 py-1 border border-neutral-700">Optimization</span>
+                    </div>
                 </div>
+
+                <!-- Use Case 3 -->
                 <div class="reveal delay-200 group h-full p-8 border border-white/5 bg-[#08080a] hover:bg-[#0d0d10] hover:border-cyan-500/30 transition-all duration-300">
-                    <i data-lucide="terminal" class="text-neutral-500 mb-6 group-hover:text-cyan-400 transition-colors w-7 h-7"></i>
-                    <h3 class="text-lg font-bold text-white mb-3">Research APIs</h3>
-                    <p class="text-sm text-neutral-400 leading-relaxed">Enterprise access for universities and labs.</p>
-                </div>
-                <div class="reveal delay-300 group h-full p-8 border border-white/5 bg-[#08080a] hover:bg-[#0d0d10] hover:border-cyan-500/30 transition-all duration-300">
-                    <i data-lucide="zap" class="text-neutral-500 mb-6 group-hover:text-cyan-400 transition-colors w-7 h-7"></i>
-                    <h3 class="text-lg font-bold text-white mb-3">Neuro-Games</h3>
-                    <p class="text-sm text-neutral-400 leading-relaxed">Gamified tasks for passive signal extraction.</p>
+                    <i data-lucide="users" class="text-indigo-500 mb-6 group-hover:text-indigo-400 transition-colors w-8 h-8"></i>
+                    <h3 class="text-lg font-bold text-white mb-3">Cognitive Hiring</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+                        Go beyond the CV. Use Cognitive Games and Stress Response (GSR) analysis during interviews to scientifically assess candidate resilience and problem-solving speed.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] bg-indigo-900/20 text-indigo-500 px-2 py-1 border border-indigo-900/50">HR Tech</span>
+                        <span class="text-[10px] bg-neutral-800 text-neutral-400 px-2 py-1 border border-neutral-700">Bias-Free</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -357,7 +370,7 @@
                         <span class="text-stroke-amber">ARCHITECTURE</span>
                     </h2>
                     <p class="text-lg text-amber-500/70 mb-10 border-l border-amber-900/50 pl-6 font-light">
-                        We analyze genetic substrates (COMT, BDNF) to predict operator resilience, reaction time, and neuroplasticity under extreme duress.
+                        For elite operatives, we go deeper. We analyze genetic substrates (COMT, BDNF) to predict operator resilience, reaction time, and neuroplasticity under extreme duress.
                     </p>
 
                     <div class="grid gap-6">
@@ -373,13 +386,6 @@
                             <div>
                                 <h4 class="text-white font-mono text-sm uppercase tracking-wide">Neuroplasticity Scoring</h4>
                                 <p class="text-xs text-neutral-500">Potential for rapid skill acquisition in field ops.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 items-start">
-                            <i data-lucide="fingerprint" class="text-amber-700 mt-1 w-5 h-5"></i>
-                            <div>
-                                <h4 class="text-white font-mono text-sm uppercase tracking-wide">Stress Adaptation</h4>
-                                <p class="text-xs text-neutral-500">Hormonal regulation under combat conditions.</p>
                             </div>
                         </div>
                     </div>
@@ -541,9 +547,7 @@
             };
 
             const draw = () => {
-                // Trail effect: clear with slight transparency or fully clear
                 ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                // To enable trails, use: ctx.fillStyle = 'rgba(2,2,4,0.2)'; ctx.fillRect(0,0,w,h);
                 
                 particles.forEach((p, i) => {
                     // Update
@@ -608,7 +612,6 @@
             let frame = 0;
 
             const resize = () => {
-                // Get container dimensions
                 const rect = canvas.parentElement.getBoundingClientRect();
                 canvas.width = rect.width;
                 canvas.height = rect.height;
@@ -662,7 +665,6 @@
                 requestAnimationFrame(draw);
             };
 
-            // Initial delay to ensure DOM layout
             setTimeout(() => {
                 resize();
                 draw();
