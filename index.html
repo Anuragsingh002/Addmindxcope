@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -63,6 +63,12 @@
             background: rgba(255, 255, 255, 0.04);
             border-color: rgba(6, 182, 212, 0.3);
         }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
     </style>
 </head>
 <body class="selection:bg-cyan-500/30 selection:text-white relative">
@@ -92,7 +98,8 @@
             </div>
 
             <div class="flex items-center gap-6">
-                <button class="hidden lg:flex items-center gap-2 bg-white text-black px-5 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all">
+                <!-- ACTION: BOOK DEMO -->
+                <button onclick="openModal('demo')" class="hidden lg:flex items-center gap-2 bg-white text-black px-5 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all">
                     <i data-lucide="user-plus" class="w-3 h-3"></i> Book Hiring Demo
                 </button>
                 <button class="lg:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"><i data-lucide="menu"></i></button>
@@ -105,7 +112,7 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION: FOCUSED ON HIRING -->
+    <!-- HERO SECTION -->
     <header class="relative pt-40 pb-32 lg:pt-60 lg:pb-32 z-10 overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -126,7 +133,8 @@
                         Fusing biological signals with digital behavior to create the <strong>highest-fidelity model of human potential</strong> ever built. Identify <strong>Problem Solvers, Innovators, and Resilient Leaders</strong> with 99.4% accuracy.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <button class="px-8 py-4 bg-cyan-600 text-white font-mono text-xs uppercase tracking-widest hover:bg-cyan-500 transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center gap-2">
+                        <!-- ACTION: START SCREENING -->
+                        <button onclick="openModal('screening')" class="px-8 py-4 bg-cyan-600 text-white font-mono text-xs uppercase tracking-widest hover:bg-cyan-500 transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center gap-2">
                             Start Candidate Screening <i data-lucide="chevron-right" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -175,23 +183,18 @@
                                 <div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-rose-400">WORKING MEMORY</span><span class="text-white">SUPERIOR</span></div>
                                 <div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-rose-500 h-full w-[95%]"></div></div>
                             </div>
-                            <div class="group cursor-default">
-                                <div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-cyan-400">PROBLEM SOLVING</span><span class="text-white">STRATEGIC</span></div>
-                                <div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-cyan-600 h-full w-[92%]"></div></div>
-                            </div>
-                            <div class="group cursor-default">
-                                <div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-emerald-400">FLEXIBILITY</span><span class="text-white">ADAPTIVE</span></div>
-                                <div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-emerald-600 h-full w-[97%]"></div></div>
-                            </div>
                         </div>
                         <div id="visualizer-bars" class="mt-6 h-12 border-t border-white/5 bg-black/30 relative overflow-hidden flex items-end gap-1 pt-2"></div>
+                        <div class="mt-2 text-[9px] font-mono text-cyan-600 text-center uppercase tracking-widest">
+                            <i data-lucide="check-circle" class="w-3 h-3 inline mr-1"></i> Recommendation: IMMEDIATE HIRE
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- SOLUTIONS (COMPACT) -->
+    <!-- SOLUTIONS -->
     <section id="solutions" class="py-16 bg-gradient-to-b from-[#030305] to-[#080c14] border-t border-white/5 z-20 relative">
         <div class="container mx-auto px-6">
             <div class="flex items-center gap-4 mb-8 reveal">
@@ -217,7 +220,8 @@
                                     <span class="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] text-rose-400">Working Memory</span>
                                 </div>
                             </div>
-                            <button class="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded text-xs font-bold uppercase tracking-wider transition-colors">
+                            <!-- ACTION: CASE STUDIES -->
+                            <button onclick="openModal('case-studies')" class="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded text-xs font-bold uppercase tracking-wider transition-colors">
                                 See Hiring Case Studies
                             </button>
                         </div>
@@ -233,7 +237,7 @@
         </div>
     </section>
 
-    <!-- STRATEGIC ADVANTAGE (ULTRA COMPACT / HIGH DENSITY) -->
+    <!-- STRATEGIC ADVANTAGE -->
     <section id="benefits" class="py-12 bg-[#030305] z-10 relative border-t border-white/5">
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-end mb-6 reveal">
@@ -242,44 +246,24 @@
                     <h2 class="text-2xl font-bold text-white">The Unfair Advantage.</h2>
                 </div>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Card 1 -->
                 <div class="reveal p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-cyan-500/30 transition-colors group">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Predictive Accuracy</h4>
-                        <i data-lucide="crosshair" class="w-4 h-4 text-cyan-500"></i>
-                    </div>
+                    <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Predictive Accuracy</h4><i data-lucide="crosshair" class="w-4 h-4 text-cyan-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">94%</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Vs. 60% for traditional resumes and interviews.</p>
                 </div>
-
-                <!-- Card 2 -->
                 <div class="reveal delay-100 p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-rose-500/30 transition-colors group">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Algorithmic Bias</h4>
-                        <i data-lucide="scale" class="w-4 h-4 text-rose-500"></i>
-                    </div>
+                    <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Algorithmic Bias</h4><i data-lucide="scale" class="w-4 h-4 text-rose-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">0%</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Pure meritocracy based on cognitive signal processing.</p>
                 </div>
-
-                <!-- Card 3 -->
                 <div class="reveal delay-200 p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-emerald-500/30 transition-colors group">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Hiring Speed</h4>
-                        <i data-lucide="zap" class="w-4 h-4 text-emerald-500"></i>
-                    </div>
+                    <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Hiring Speed</h4><i data-lucide="zap" class="w-4 h-4 text-emerald-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">3x</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Replace weeks of screening with a 30-min assessment.</p>
                 </div>
-
-                <!-- Card 4 -->
                 <div class="reveal delay-300 p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-amber-500/30 transition-colors group">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Retention Rate</h4>
-                        <i data-lucide="users" class="w-4 h-4 text-amber-500"></i>
-                    </div>
+                    <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Retention Rate</h4><i data-lucide="users" class="w-4 h-4 text-amber-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">+40%</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Candidates hired for cognitive fit stay longer.</p>
                 </div>
@@ -295,13 +279,10 @@
                 <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">The 9-Layer Architecture.</h2>
                 <div class="h-1 w-20 bg-gradient-to-r from-cyan-600 to-transparent mt-4"></div>
             </div>
-            
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Pillar 1 -->
                 <div class="reveal">
-                    <div class="border-b border-cyan-500/30 pb-4 mb-6">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="activity" class="text-cyan-500"></i> Neuro-Imaging</h3>
-                    </div>
+                    <div class="border-b border-cyan-500/30 pb-4 mb-6"><h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="activity" class="text-cyan-500"></i> Neuro-Imaging</h3></div>
                     <div class="space-y-3">
                         <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-cyan-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">01</div><div><h4 class="text-sm font-bold text-white">Cortical Dynamics (EEG)</h4><p class="text-xs text-neutral-500 mt-1">Millisecond-precision electrical monitoring.</p></div></div>
                         <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-cyan-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">02</div><div><h4 class="text-sm font-bold text-white">Hemodynamics (fNIRS)</h4><p class="text-xs text-neutral-500 mt-1">Prefrontal oxygenation & workload tracking.</p></div></div>
@@ -310,9 +291,7 @@
                 </div>
                 <!-- Pillar 2 -->
                 <div class="reveal delay-100">
-                    <div class="border-b border-indigo-500/30 pb-4 mb-6">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="mouse-pointer-2" class="text-indigo-500"></i> Behavioral Intel</h3>
-                    </div>
+                    <div class="border-b border-indigo-500/30 pb-4 mb-6"><h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="mouse-pointer-2" class="text-indigo-500"></i> Behavioral Intel</h3></div>
                     <div class="space-y-3">
                         <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-indigo-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">04</div><div><h4 class="text-sm font-bold text-white">Oculometrics</h4><p class="text-xs text-neutral-500 mt-1">Eye tracking for gaze fixation & attention spans.</p></div></div>
                         <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-indigo-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">05</div><div><h4 class="text-sm font-bold text-white">Keystroke Dynamics</h4><p class="text-xs text-neutral-500 mt-1">Typing cadence, rhythm, and hesitation analysis.</p></div></div>
@@ -321,9 +300,7 @@
                 </div>
                 <!-- Pillar 3 -->
                 <div class="reveal delay-200">
-                    <div class="border-b border-emerald-500/30 pb-4 mb-6">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="cpu" class="text-emerald-500"></i> Active & AI</h3>
-                    </div>
+                    <div class="border-b border-emerald-500/30 pb-4 mb-6"><h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="cpu" class="text-emerald-500"></i> Active & AI</h3></div>
                     <div class="space-y-3">
                         <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-emerald-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">07</div><div><h4 class="text-sm font-bold text-white">Active Games</h4><p class="text-xs text-neutral-500 mt-1">Gamified N-Back tasks for memory stress testing.</p></div></div>
                         <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-emerald-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">08</div><div><h4 class="text-sm font-bold text-white">SciML Core</h4><p class="text-xs text-neutral-500 mt-1">Scientific Machine Learning for pattern extraction.</p></div></div>
@@ -344,56 +321,72 @@
                     <p class="text-neutral-400 mt-2 text-sm">Validating metrics for Fluid IQ, Creativity, Attention, and Decision Making.</p>
                 </div>
             </div>
-
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Papers with corrected links -->
                 <a href="https://www.nature.com/articles/s41598-018-23428-2" target="_blank" class="reveal glass-panel p-6 rounded-lg group cursor-pointer block">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2"><i data-lucide="brain" class="text-cyan-500 w-4 h-4"></i> <span class="text-[10px] text-cyan-400 font-mono">FLUID IQ</span></div>
-                        <i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i>
-                    </div>
+                    <div class="flex justify-between items-start mb-4"><div class="flex items-center gap-2"><i data-lucide="brain" class="text-cyan-500 w-4 h-4"></i> <span class="text-[10px] text-cyan-400 font-mono">FLUID IQ</span></div><i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i></div>
                     <h4 class="text-sm font-bold text-white mb-2 leading-snug group-hover:text-cyan-400 transition-colors">"Correlating Prefrontal Hemodynamics with Fluid Intelligence (Gf)"</h4>
-                    <p class="text-xs text-neutral-500">Nature Scientific Reports: Validates fNIRS oxygenation as a reliable proxy for cognitive processing power.</p>
+                    <p class="text-xs text-neutral-500">Nature Scientific Reports</p>
                 </a>
                 <a href="https://pubmed.ncbi.nlm.nih.gov/24904269/" target="_blank" class="reveal delay-100 glass-panel p-6 rounded-lg group cursor-pointer block">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2"><i data-lucide="lightbulb" class="text-violet-500 w-4 h-4"></i> <span class="text-[10px] text-violet-400 font-mono">CREATIVITY</span></div>
-                        <i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i>
-                    </div>
+                    <div class="flex justify-between items-start mb-4"><div class="flex items-center gap-2"><i data-lucide="lightbulb" class="text-violet-500 w-4 h-4"></i> <span class="text-[10px] text-violet-400 font-mono">CREATIVITY</span></div><i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i></div>
                     <h4 class="text-sm font-bold text-white mb-2 leading-snug group-hover:text-violet-400 transition-colors">"EEG Alpha Synchronization and Divergent Thinking"</h4>
-                    <p class="text-xs text-neutral-500">NeuroImage: Establishes links between frontal alpha waves and high scores in creative problem solving.</p>
+                    <p class="text-xs text-neutral-500">NeuroImage</p>
                 </a>
                 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6696030/" target="_blank" class="reveal delay-200 glass-panel p-6 rounded-lg group cursor-pointer block">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2"><i data-lucide="activity" class="text-emerald-500 w-4 h-4"></i> <span class="text-[10px] text-emerald-400 font-mono">STRESS</span></div>
-                        <i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i>
-                    </div>
+                    <div class="flex justify-between items-start mb-4"><div class="flex items-center gap-2"><i data-lucide="activity" class="text-emerald-500 w-4 h-4"></i> <span class="text-[10px] text-emerald-400 font-mono">STRESS</span></div><i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i></div>
                     <h4 class="text-sm font-bold text-white mb-2 leading-snug group-hover:text-emerald-400 transition-colors">"Multimodal Sensor Fusion (fNIRS + GSR) for Stress Detection"</h4>
-                    <p class="text-xs text-neutral-500">Sensors Journal: Validates separating cognitive load from emotional stress with 96% accuracy.</p>
+                    <p class="text-xs text-neutral-500">Sensors Journal</p>
                 </a>
                 <a href="https://ieeexplore.ieee.org/document/6666060" target="_blank" class="reveal glass-panel p-6 rounded-lg group cursor-pointer block">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2"><i data-lucide="eye" class="text-indigo-500 w-4 h-4"></i> <span class="text-[10px] text-indigo-400 font-mono">ATTENTION</span></div>
-                        <i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i>
-                    </div>
+                    <div class="flex justify-between items-start mb-4"><div class="flex items-center gap-2"><i data-lucide="eye" class="text-indigo-500 w-4 h-4"></i> <span class="text-[10px] text-indigo-400 font-mono">ATTENTION</span></div><i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i></div>
                     <h4 class="text-sm font-bold text-white mb-2 leading-snug group-hover:text-indigo-400 transition-colors">"Real-Time Decoding of Working Memory Load via Hybrid BCI"</h4>
-                    <p class="text-xs text-neutral-500">IEEE: Demonstrates distinction between sustained deep focus and cognitive fatigue.</p>
+                    <p class="text-xs text-neutral-500">IEEE Biomedical</p>
                 </a>
                 <a href="https://dl.acm.org/doi/10.1145/2858036.2858342" target="_blank" class="reveal delay-100 glass-panel p-6 rounded-lg group cursor-pointer block">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2"><i data-lucide="mouse-pointer-2" class="text-amber-500 w-4 h-4"></i> <span class="text-[10px] text-amber-400 font-mono">DECISION</span></div>
-                        <i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i>
-                    </div>
+                    <div class="flex justify-between items-start mb-4"><div class="flex items-center gap-2"><i data-lucide="mouse-pointer-2" class="text-amber-500 w-4 h-4"></i> <span class="text-[10px] text-amber-400 font-mono">DECISION</span></div><i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i></div>
                     <h4 class="text-sm font-bold text-white mb-2 leading-snug group-hover:text-amber-400 transition-colors">"Behavioral Biometrics in Decision Making via Mouse Dynamics"</h4>
-                    <p class="text-xs text-neutral-500">ACM CHI: Analyzes mouse kinematics to predict decision confidence and hesitation.</p>
+                    <p class="text-xs text-neutral-500">ACM CHI</p>
                 </a>
-                <a href="https://www.nature.com/articles/s41562-019-0565-x" target="_blank" class="reveal delay-200 glass-panel p-6 rounded-lg group cursor-pointer block">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-2"><i data-lucide="scale" class="text-rose-500 w-4 h-4"></i> <span class="text-[10px] text-rose-400 font-mono">BIAS FREE</span></div>
-                        <i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i>
+                <a href="https://psycnet.apa.org/record/1998-10661-004" target="_blank" class="reveal delay-200 glass-panel p-6 rounded-lg group cursor-pointer block">
+                    <div class="flex justify-between items-start mb-4"><div class="flex items-center gap-2"><i data-lucide="scale" class="text-rose-500 w-4 h-4"></i> <span class="text-[10px] text-rose-400 font-mono">VALIDITY</span></div><i data-lucide="external-link" class="text-neutral-600 w-3 h-3 group-hover:text-white transition-colors"></i></div>
+                    <h4 class="text-sm font-bold text-white mb-2 leading-snug group-hover:text-rose-400 transition-colors">"The Validity and Utility of Selection Methods (Schmidt & Hunter)"</h4>
+                    <p class="text-xs text-neutral-500">Psychological Bulletin</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. GENE-OPS (RESTRICTED) -->
+    <section id="gene-ops" class="py-32 relative overflow-hidden bg-[#050300]/95 border-y border-amber-900/30 z-10">
+        <div class="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent opacity-50"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex items-center gap-4 mb-12">
+                <i data-lucide="shield-alert" class="text-amber-600 animate-pulse w-6 h-6"></i>
+                <div>
+                    <div class="font-mono text-xs text-amber-600 tracking-[0.3em] uppercase">Restricted Access // Tier 1</div>
+                    <div class="font-mono text-[10px] text-amber-900/60">MILITARY & INTELLIGENCE ONLY</div>
+                </div>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter leading-none">
+                        GENOMIC <br/>
+                        <span class="text-stroke-amber">ARCHITECTURE</span>
+                    </h2>
+                    <p class="text-lg text-amber-500/70 mb-10 border-l border-amber-900/50 pl-6 font-light">
+                        For elite operatives, we go deeper. We analyze genetic substrates (COMT, BDNF) to predict operator resilience, reaction time, and neuroplasticity under extreme duress.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <button class="flex items-center gap-2 px-6 py-3 bg-amber-900/10 border border-amber-600/30 text-amber-500 font-mono text-xs uppercase tracking-widest hover:bg-amber-900/30 hover:border-amber-500 transition-all">
+                            <i data-lucide="lock" class="w-3 h-3"></i> Request Clearance
+                        </button>
                     </div>
-                    <h4 class="text-sm font-bold text-white mb-2 leading-snug group-hover:text-rose-400 transition-colors">"Reducing Unconscious Bias through Objective Biometrics"</h4>
-                    <p class="text-xs text-neutral-500">Nature Human Behaviour: Study showing zero correlation between algorithmic scoring and demographic variables.</p>
-                </a>
+                </div>
+                <div class="relative h-[500px] w-full border border-amber-900/20 bg-black/50 rounded-lg overflow-hidden reveal delay-200">
+                     <canvas id="dna-canvas" class="w-full h-full block"></canvas>
+                     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/5 to-transparent h-[10%] animate-scan pointer-events-none"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -408,10 +401,121 @@
         </div>
     </footer>
 
+    <!-- INTERACTIVE MODAL (BACKEND SIMULATION) -->
+    <div id="lead-modal" class="fixed inset-0 z-[60] hidden modal-backdrop flex items-center justify-center p-4">
+        <div class="bg-[#0a0a0c] border border-white/10 rounded-xl w-full max-w-md p-8 relative shadow-2xl scale-95 opacity-0 transition-all duration-300" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-white"><i data-lucide="x"></i></button>
+            
+            <div id="modal-form-view">
+                <div class="mb-6">
+                    <span id="modal-context" class="text-[10px] font-mono text-cyan-500 uppercase tracking-widest border border-cyan-500/30 px-2 py-1 rounded">DEMO REQUEST</span>
+                    <h3 class="text-2xl font-bold text-white mt-3" id="modal-title">Unlock Intelligence.</h3>
+                    <p class="text-neutral-400 text-sm mt-2">Enter your corporate email to access the Mindxcope platform.</p>
+                </div>
+                
+                <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-neutral-500 mb-1 uppercase">Work Email</label>
+                        <input type="email" required class="w-full bg-black/50 border border-white/10 rounded p-3 text-white text-sm focus:border-cyan-500 focus:outline-none transition-colors" placeholder="name@company.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-neutral-500 mb-1 uppercase">Company Name</label>
+                        <input type="text" required class="w-full bg-black/50 border border-white/10 rounded p-3 text-white text-sm focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Acme Corp">
+                    </div>
+                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded transition-all flex items-center justify-center gap-2">
+                        <span id="btn-text">Submit Request</span>
+                        <i id="btn-icon" data-lucide="arrow-right" class="w-4 h-4"></i>
+                        <div id="btn-spinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    </button>
+                </form>
+            </div>
+
+            <div id="modal-success-view" class="hidden text-center py-8">
+                <div class="w-16 h-16 bg-emerald-900/20 rounded-full flex items-center justify-center text-emerald-500 mx-auto mb-4">
+                    <i data-lucide="check" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Request Received.</h3>
+                <p class="text-neutral-400 text-sm mb-6">Our intelligence team will contact you shortly to schedule your personalized assessment.</p>
+                <button onclick="closeModal()" class="text-neutral-500 hover:text-white text-xs font-bold uppercase tracking-wider">Close Window</button>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
         // Icons
         lucide.createIcons();
+
+        // --- MODAL LOGIC (BACKEND SIMULATION) ---
+        function openModal(context) {
+            const modal = document.getElementById('lead-modal');
+            const content = document.getElementById('modal-content');
+            const tag = document.getElementById('modal-context');
+            const title = document.getElementById('modal-title');
+            
+            // Reset View
+            document.getElementById('modal-form-view').classList.remove('hidden');
+            document.getElementById('modal-success-view').classList.add('hidden');
+            
+            // Set Context
+            if(context === 'demo') {
+                tag.innerText = "DEMO REQUEST";
+                title.innerText = "Book a Hiring Demo";
+            } else if(context === 'screening') {
+                tag.innerText = "SCREENING ACCESS";
+                title.innerText = "Start Candidate Assessment";
+            } else if(context === 'case-studies') {
+                tag.innerText = "RESEARCH ACCESS";
+                title.innerText = "Download Case Studies";
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('lead-modal');
+            const content = document.getElementById('modal-content');
+            
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const btnText = document.getElementById('btn-text');
+            const btnIcon = document.getElementById('btn-icon');
+            const spinner = document.getElementById('btn-spinner');
+            
+            // Simulate Backend Latency
+            btnText.innerText = "Processing...";
+            btnIcon.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            
+            setTimeout(() => {
+                // Success State
+                document.getElementById('modal-form-view').classList.add('hidden');
+                document.getElementById('modal-success-view').classList.remove('hidden');
+                
+                // Reset Button
+                btnText.innerText = "Submit Request";
+                btnIcon.classList.remove('hidden');
+                spinner.classList.add('hidden');
+                
+                // Log "Backend" Call
+                console.log("BACKEND SIMULATION: Lead captured successfully.", {
+                    timestamp: new Date().toISOString(),
+                    source: document.getElementById('modal-context').innerText
+                });
+            }, 1500);
+        }
 
         // --- Neural Cortex (Background) ---
         function initNeuralCortex() {
