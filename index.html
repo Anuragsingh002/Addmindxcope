@@ -19,9 +19,9 @@
                         amber: { 500: '#f59e0b', 600: '#d97706', 900: '#78350f' },
                         emerald: { 500: '#10b981', 900: '#064e3b' },
                         rose: { 500: '#f43f5e', 900: '#881337' },
-                        // NEW STANDARD THEME FOR GENE-OPS: DEEP VIOLET
-                        violet: { 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 900: '#4c1d95', 950: '#2e1065' },
+                        violet: { 400: '#a78bfa', 500: '#8b5cf6', 900: '#4c1d95', 950: '#2e1065' },
                         indigo: { 500: '#6366f1', 900: '#312e81' },
+                        slate: { 850: '#151f32' }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -52,8 +52,6 @@
         
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        /* Text Strokes */
         .text-stroke-amber { -webkit-text-stroke: 1px #d97706; color: transparent; }
         .text-stroke-violet { -webkit-text-stroke: 1px #8b5cf6; color: transparent; }
         
@@ -96,7 +94,7 @@
 
             <div class="hidden lg:flex items-center gap-8">
                 <a href="#solutions" class="text-[11px] font-bold font-mono uppercase tracking-widest text-cyan-400 border-b border-cyan-500/50 pb-1">Cognitive Hiring</a>
-                <a href="#benefits" class="text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">ROI & Benefits</a>
+                <a href="#benefits" class="text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">Benefits</a>
                 <a href="#technology" class="text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">Architecture</a>
                 <a href="#gene-ops" class="text-[11px] font-bold font-mono uppercase tracking-widest text-violet-500 hover:text-white transition-colors">Gene-Ops</a>
             </div>
@@ -116,7 +114,7 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <header class="relative pt-40 pb-32 lg:pt-60 lg:pb-32 z-10 overflow-hidden">
+    <header class="relative pt-40 pb-24 lg:pt-60 lg:pb-32 z-10 overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="relative z-10">
@@ -176,6 +174,21 @@
         </div>
     </header>
 
+    <!-- NEW SECTION: HARDWARE ECOSYSTEM (Authenticity Booster) -->
+    <div class="w-full border-y border-white/5 bg-[#08080a] py-8 z-10 relative overflow-hidden">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <span class="text-neutral-500 font-mono text-xs uppercase tracking-widest whitespace-nowrap">Hardware Compatible With:</span>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Text representation of logos for reliability -->
+                <div class="flex items-center gap-2"><i data-lucide="cpu" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">EMOTIV</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="headphones" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">MUSE</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="eye" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">TOBII</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="activity" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">OpenBCI</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">NVIDIA</span></div>
+            </div>
+        </div>
+    </div>
+
     <!-- SOLUTIONS (COMPACT) -->
     <section id="solutions" class="py-16 bg-gradient-to-b from-[#030305] to-[#080c14] border-t border-white/5 z-20 relative">
         <div class="container mx-auto px-6">
@@ -190,7 +203,7 @@
                         <div class="flex-1">
                             <h2 class="text-3xl font-bold text-white mb-4">Cognitive Hiring.</h2>
                             <p class="text-sm text-neutral-400 mb-6 leading-relaxed max-w-xl">
-                                Traditional interviews are biased. Mindxcope provides a <strong>scientific cognitive audit</strong> of candidates using biosignals.
+                                Traditional interviews are biased. Mindxcope provides a <strong>scientific cognitive audit</strong> of candidates using gamified tasks and biosignals.
                             </p>
                             <div class="mb-6">
                                 <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-wider mb-2 block">Dimensions Analyzed</span>
@@ -208,6 +221,33 @@
                             <div class="text-center"><i data-lucide="users" class="w-12 h-12 text-cyan-500/50 mx-auto mb-2"></i><div class="font-mono text-cyan-400 text-xs">MATCHING CANDIDATES...</div></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: HOW IT WORKS (Authenticity Booster) -->
+    <section class="py-16 bg-[#030305] z-10 relative">
+        <div class="container mx-auto px-6">
+            <h3 class="text-neutral-500 font-mono text-sm tracking-[0.2em] uppercase mb-12 text-center">Implementation Workflow</h3>
+            <div class="grid md:grid-cols-3 gap-8 text-center relative">
+                <!-- Connecting Line -->
+                <div class="hidden md:block absolute top-8 left-0 w-full h-px bg-white/10 z-0"></div>
+                
+                <div class="reveal relative z-10">
+                    <div class="w-16 h-16 bg-[#0a0a0c] border border-white/10 rounded-full flex items-center justify-center text-cyan-400 mx-auto mb-6 text-xl font-bold font-mono">01</div>
+                    <h4 class="text-white font-bold mb-2">Equip & Calibrate</h4>
+                    <p class="text-xs text-neutral-400 max-w-xs mx-auto">Candidate puts on standard EEG/fNIRS headset and GSR mouse. 2-minute AI calibration.</p>
+                </div>
+                <div class="reveal delay-100 relative z-10">
+                    <div class="w-16 h-16 bg-[#0a0a0c] border border-white/10 rounded-full flex items-center justify-center text-indigo-400 mx-auto mb-6 text-xl font-bold font-mono">02</div>
+                    <h4 class="text-white font-bold mb-2">Cognitive Tasks</h4>
+                    <p class="text-xs text-neutral-400 max-w-xs mx-auto">Candidate plays 20 minutes of gamified N-Back and logic puzzles while sensors record.</p>
+                </div>
+                <div class="reveal delay-200 relative z-10">
+                    <div class="w-16 h-16 bg-[#0a0a0c] border border-white/10 rounded-full flex items-center justify-center text-emerald-400 mx-auto mb-6 text-xl font-bold font-mono">03</div>
+                    <h4 class="text-white font-bold mb-2">Instant Profile</h4>
+                    <p class="text-xs text-neutral-400 max-w-xs mx-auto">Dashboard generates 50+ cognitive metrics and a "Fit Score" for the specific role.</p>
                 </div>
             </div>
         </div>
@@ -428,6 +468,24 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: PRIVACY VAULT (Authenticity Booster) -->
+    <section class="py-12 bg-neutral-950/80 border-t border-white/5 z-10 relative">
+        <div class="container mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 mb-6 text-emerald-500 border border-emerald-900/50 bg-emerald-950/20 px-3 py-1 rounded-full">
+                <i data-lucide="shield-check" class="w-4 h-4"></i> <span class="text-xs font-bold tracking-widest uppercase">Privacy First Architecture</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Your Bio-Data is Sovereign.</h3>
+            <p class="text-neutral-400 text-sm max-w-2xl mx-auto mb-8">
+                We employ military-grade encryption and local-first processing. Your cognitive data is anonymized, tokenized, and never sold.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-xs font-mono text-neutral-500">
+                <span class="flex items-center gap-2"><i data-lucide="lock" class="w-3 h-3"></i> AES-256 ENCRYPTION</span>
+                <span class="flex items-center gap-2"><i data-lucide="server" class="w-3 h-3"></i> ON-PREMISE OPTION</span>
+                <span class="flex items-center gap-2"><i data-lucide="file-check" class="w-3 h-3"></i> GDPR COMPLIANT</span>
             </div>
         </div>
     </section>
