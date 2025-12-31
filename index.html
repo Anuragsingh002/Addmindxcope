@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
     <!-- 1. External Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <!-- 2. Configuration -->
@@ -16,7 +17,6 @@
             theme: {
                 extend: {
                     colors: {
-                        black: '#050505',
                         cyan: { 400: '#22d3ee', 500: '#06b6d4', 900: '#164e63', 950: '#083344' },
                         amber: { 500: '#f59e0b', 600: '#d97706', 900: '#78350f' },
                         emerald: { 500: '#10b981', 900: '#064e3b' },
@@ -32,23 +32,32 @@
                         'spin-slow': 'spin 12s linear infinite',
                         'scan': 'scan 4s linear infinite',
                         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'aurora': 'aurora 10s linear infinite',
                     },
                     keyframes: {
-                        scan: { '0%': { top: '-10%' }, '100%': { top: '110%' } },
-                        aurora: { '0%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' }, '100%': { backgroundPosition: '0% 50%' } }
+                        scan: {
+                            '0%': { top: '-10%' },
+                            '100%': { top: '110%' },
+                        }
                     },
-                    cursor: { 'none': 'none' }
+                    cursor: {
+                        'none': 'none',
+                    }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
         
-        body { background-color: #050505; color: #e5e5e5; overflow-x: hidden; cursor: none; }
+        body { 
+            background-color: #030305; 
+            color: #e5e5e5; 
+            overflow-x: hidden; 
+            cursor: none; /* Custom Cursor Logic */
+        }
+        
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-track { background: #030305; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
@@ -56,43 +65,23 @@
         .text-stroke-amber { -webkit-text-stroke: 1px #d97706; color: transparent; }
         .text-stroke-violet { -webkit-text-stroke: 1px #8b5cf6; color: transparent; }
         
-        /* Spotlight Card */
-        .spotlight-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-        .spotlight-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.4), transparent 40%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-        }
-        .spotlight-card:hover::before { opacity: 1; }
-        .spotlight-card:hover { transform: translateY(-2px); }
-
         /* Glass Panel */
         .glass-panel {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateY(-5px);
         }
 
-        /* Cinematic Noise */
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9998; opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        /* Modal Styles */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
         }
 
         /* Custom Cursor */
@@ -112,22 +101,26 @@
 
         /* Preloader */
         #preloader {
-            position: fixed; inset: 0; background: #050505; z-index: 50000;
+            position: fixed; inset: 0; background: #000; z-index: 50000;
             display: flex; justify-content: center; align-items: center; flex-direction: column;
             transition: opacity 0.8s ease-out;
         }
         .loader-bar { width: 200px; height: 2px; background: #333; margin-top: 20px; position: relative; overflow: hidden; }
         .loader-progress { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #22d3ee; transition: width 0.5s; }
-
-        /* Metallic Text Gradient */
-        .text-metallic {
-            background: linear-gradient(to bottom, #ffffff, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        
+        /* Security Scanner Animation */
+        .security-line {
+            height: 2px;
+            width: 100%;
+            background: #8b5cf6;
+            box-shadow: 0 0 10px #8b5cf6;
+            animation: scan-vertical 2s linear infinite;
         }
-
-        /* Modal Styles */
-        .modal-backdrop { background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); }
+        @keyframes scan-vertical {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(200px); opacity: 0; }
+        }
     </style>
 </head>
 <body class="selection:bg-cyan-500/30 selection:text-white relative">
@@ -142,22 +135,16 @@
         <div class="font-mono text-cyan-500 text-xs mt-2" id="loader-text">INITIALIZING SENSORS...</div>
     </div>
 
-    <!-- CURSOR & NOISE -->
+    <!-- CURSOR -->
     <div class="custom-cursor" id="cursor"></div>
     <div class="custom-cursor-dot" id="cursor-dot"></div>
-    <div class="noise-overlay"></div>
 
-    <!-- AMBIENT GLOWS -->
-    <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-cyan-500/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
-    <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-violet-900/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
-
-    <!-- 1. NEURAL BACKGROUND SIMULATION (Subtle) -->
-    <canvas id="neural-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-30"></canvas>
-    
+    <!-- BACKGROUND SIMULATION -->
+    <canvas id="neural-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-50"></canvas>
     <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-cyan-500 via-violet-500 to-amber-500 z-[100]" style="width: 0%"></div>
 
     <!-- NAVIGATION -->
-    <nav class="fixed w-full z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl transition-all duration-300">
+    <nav class="fixed w-full z-50 border-b border-white/5 bg-[#030305]/90 backdrop-blur-xl transition-all duration-300">
         <div class="container mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3 group cursor-pointer hover-trigger">
                 <div class="relative w-10 h-10 flex items-center justify-center bg-white/5 rounded-sm border border-white/10 group-hover:border-cyan-500/50 transition-colors">
@@ -168,12 +155,14 @@
                     <span class="text-[9px] font-mono text-cyan-500 tracking-[0.2em] uppercase block mt-1">Recruitment OS</span>
                 </div>
             </div>
+
             <div class="hidden lg:flex items-center gap-8">
                 <a href="#solutions" class="hover-trigger text-[11px] font-bold font-mono uppercase tracking-widest text-cyan-400 border-b border-cyan-500/50 pb-1">Cognitive Hiring</a>
                 <a href="#benefits" class="hover-trigger text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">ROI & Benefits</a>
                 <a href="#technology" class="hover-trigger text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">Architecture</a>
                 <a href="#team" class="hover-trigger text-[11px] font-bold font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">Team</a>
             </div>
+
             <div class="flex items-center gap-6">
                 <button onclick="openModal('demo')" class="hover-trigger hidden lg:flex items-center gap-2 bg-white text-black px-5 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all">
                     <i data-lucide="user-plus" class="w-3 h-3"></i> Book Hiring Demo
@@ -193,8 +182,6 @@
     <header class="relative pt-40 pb-24 lg:pt-60 lg:pb-32 z-10 overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
-                
-                <!-- Hero Content -->
                 <div class="relative z-10">
                     <div class="flex items-center gap-4 mb-8 reveal active">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-cyan-500/30 bg-cyan-950/10 shadow-[0_0_10px_rgba(6,182,212,0.2)] backdrop-blur-md">
@@ -205,27 +192,23 @@
                     </div>
                     <h1 class="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-white leading-[0.9] mb-8">
                         <span class="block text-neutral-500 scramble-text" data-text="QUANTIFY">QUANTIFY</span>
-                        <span class="block text-metallic">HUMAN</span>
+                        <span class="block text-white">HUMAN</span>
                         <span class="block bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500 font-medium">POTENTIAL</span>
                     </h1>
-                    <p class="text-lg text-neutral-400 max-w-xl leading-relaxed mb-10 border-l-2 border-white/10 pl-6 bg-white/5 backdrop-blur-sm p-4 rounded-r-lg">
+                    <p class="text-lg text-neutral-400 max-w-xl leading-relaxed mb-10 border-l-2 border-white/10 pl-6 bg-black/20 backdrop-blur-sm p-4 rounded-r-lg">
                         Fusing biological signals with digital behavior to create the <strong>highest-fidelity model of human potential</strong> ever built. Identify <strong>Problem Solvers, Innovators, and Resilient Leaders</strong> with 99.4% accuracy.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <button onclick="openModal('screening')" class="hover-trigger px-8 py-4 bg-cyan-600 text-white font-mono text-xs uppercase tracking-widest hover:bg-cyan-500 transition-all hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] flex items-center gap-2">
+                        <button onclick="openModal('screening')" class="hover-trigger px-8 py-4 bg-cyan-600 text-white font-mono text-xs uppercase tracking-widest hover:bg-cyan-500 transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center gap-2">
                             Start Candidate Screening <i data-lucide="chevron-right" class="w-4 h-4"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- HERO WIDGET + 3D BRAIN VISUAL -->
+                <!-- HERO WIDGET -->
                 <div class="relative reveal delay-200 hidden lg:block">
-                    <!-- 2. HOLOGRAPHIC 3D BRAIN CANVAS -->
-                    <div class="absolute -top-32 -right-20 w-[600px] h-[600px] pointer-events-none z-0 opacity-70">
-                        <canvas id="brain-3d-canvas"></canvas>
-                    </div>
-
-                    <div class="relative z-10 border border-cyan-500/20 bg-black/60 backdrop-blur-xl p-6 w-full max-w-lg ml-auto rounded-xl shadow-2xl">
+                    <div class="absolute inset-0 bg-cyan-500/10 blur-[100px] rounded-full"></div>
+                    <div class="relative border border-cyan-500/30 bg-black/80 backdrop-blur-xl p-6 w-full max-w-lg ml-auto rounded-lg shadow-2xl">
                         <div class="flex justify-between items-start mb-6 border-b border-white/10 pb-4">
                             <div>
                                 <div class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mb-1">Live Assessment</div>
@@ -240,12 +223,13 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-x-8 gap-y-4 font-mono text-[10px]">
-                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-cyan-400 transition-colors">FLUID IQ & LOGIC</span><span class="text-white">135+</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-cyan-500 h-full w-[98%]"></div></div></div>
-                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-violet-400 transition-colors">CREATIVITY</span><span class="text-white">VERY HIGH</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-violet-500 h-full w-[94%]"></div></div></div>
-                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-emerald-400 transition-colors">STRESS HANDLING</span><span class="text-white">ELITE</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-emerald-500 h-full w-[96%]"></div></div></div>
-                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-indigo-400 transition-colors">ATTENTION SPAN</span><span class="text-white">45m+</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-indigo-500 h-full w-[90%]"></div></div></div>
-                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-amber-400 transition-colors">DECISION SPEED</span><span class="text-white">12ms</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-amber-500 h-full w-[99%]"></div></div></div>
-                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-rose-400 transition-colors">WORKING MEMORY</span><span class="text-white">SUPERIOR</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-rose-500 h-full w-[95%]"></div></div></div>
+                            <!-- Metrics -->
+                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-cyan-400">FLUID IQ & LOGIC</span><span class="text-white">135+</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-cyan-500 h-full w-[98%]"></div></div></div>
+                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-violet-400">CREATIVITY</span><span class="text-white">VERY HIGH</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-violet-500 h-full w-[94%]"></div></div></div>
+                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-emerald-400">STRESS HANDLING</span><span class="text-white">ELITE</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-emerald-500 h-full w-[96%]"></div></div></div>
+                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-indigo-400">ATTENTION SPAN</span><span class="text-white">45m+</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-indigo-500 h-full w-[90%]"></div></div></div>
+                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-amber-400">DECISION SPEED</span><span class="text-white">12ms</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-amber-500 h-full w-[99%]"></div></div></div>
+                            <div class="group cursor-default"><div class="flex justify-between mb-1"><span class="text-neutral-400 group-hover:text-rose-400">WORKING MEMORY</span><span class="text-white">SUPERIOR</span></div><div class="w-full bg-neutral-800 h-1 rounded-full"><div class="bg-rose-500 h-full w-[95%]"></div></div></div>
                         </div>
                         <div id="visualizer-bars" class="mt-6 h-12 border-t border-white/5 bg-black/30 relative overflow-hidden flex items-end gap-1 pt-2"></div>
                         <div class="mt-2 text-[9px] font-mono text-cyan-600 text-center uppercase tracking-widest"><i data-lucide="check-circle" class="w-3 h-3 inline mr-1"></i> Recommendation: IMMEDIATE HIRE</div>
@@ -255,15 +239,29 @@
         </div>
     </header>
 
+    <!-- NEW SECTION: HARDWARE ECOSYSTEM -->
+    <div class="w-full border-y border-white/5 bg-[#08080a] py-8 z-10 relative overflow-hidden">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <span class="text-neutral-500 font-mono text-xs uppercase tracking-widest whitespace-nowrap">Hardware Compatible With:</span>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="cpu" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">EMOTIV</span></div>
+                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="headphones" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">MUSE</span></div>
+                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="eye" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">TOBII</span></div>
+                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="activity" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">OpenBCI</span></div>
+                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">NVIDIA</span></div>
+            </div>
+        </div>
+    </div>
+
     <!-- SOLUTIONS (COMPACT) -->
-    <section id="solutions" class="py-16 bg-gradient-to-b from-[#050505] to-[#080c14] border-t border-white/5 z-20 relative">
+    <section id="solutions" class="py-16 bg-gradient-to-b from-[#030305] to-[#080c14] border-t border-white/5 z-20 relative">
         <div class="container mx-auto px-6">
             <div class="flex items-center gap-4 mb-8 reveal">
                 <div class="h-px bg-cyan-500 w-12"></div>
                 <span class="text-cyan-500 font-mono text-sm tracking-[0.2em] uppercase">Flagship Solution</span>
             </div>
             <div class="relative group rounded-xl p-px bg-gradient-to-br from-cyan-500/50 to-indigo-600/50 reveal">
-                <div class="relative bg-[#08080a] rounded-xl p-8 overflow-hidden">
+                <div class="relative bg-[#050507] rounded-xl p-8 overflow-hidden">
                     <div class="absolute top-0 right-0 w-1/3 h-full opacity-10 bg-gradient-to-l from-cyan-400 to-transparent"></div>
                     <div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
                         <div class="flex-1">
@@ -293,7 +291,7 @@
     </section>
 
     <!-- NEW: HOW IT WORKS -->
-    <section class="py-16 bg-[#050505] z-10 relative">
+    <section class="py-16 bg-[#030305] z-10 relative">
         <div class="container mx-auto px-6">
             <h3 class="text-neutral-500 font-mono text-sm tracking-[0.2em] uppercase mb-12 text-center">Implementation Workflow</h3>
             <div class="grid md:grid-cols-3 gap-8 text-center relative">
@@ -317,29 +315,29 @@
         </div>
     </section>
 
-    <!-- STRATEGIC ADVANTAGE (SPOTLIGHT) -->
-    <section id="benefits" class="py-12 bg-[#050505] z-10 relative border-t border-white/5">
+    <!-- STRATEGIC ADVANTAGE (COMPACT) -->
+    <section id="benefits" class="py-12 bg-[#030305] z-10 relative border-t border-white/5">
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-end mb-6 reveal">
-                <div><h3 class="text-neutral-500 font-mono text-sm tracking-[0.2em] uppercase mb-1">Why Mindxcope?</h3><h2 class="text-2xl font-bold text-metallic">The Unfair Advantage.</h2></div>
+                <div><h3 class="text-neutral-500 font-mono text-sm tracking-[0.2em] uppercase mb-1">Why Mindxcope?</h3><h2 class="text-2xl font-bold text-white">The Unfair Advantage.</h2></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="reveal spotlight-card p-5 rounded-xl group">
+                <div class="reveal p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-cyan-500/30 transition-colors group">
                     <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Predictive Accuracy</h4><i data-lucide="crosshair" class="w-4 h-4 text-cyan-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">94%</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Vs. 60% for traditional resumes and interviews.</p>
                 </div>
-                <div class="reveal delay-100 spotlight-card p-5 rounded-xl group">
+                <div class="reveal delay-100 p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-rose-500/30 transition-colors group">
                     <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Algorithmic Bias</h4><i data-lucide="scale" class="w-4 h-4 text-rose-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">0%</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Pure meritocracy based on cognitive signal processing.</p>
                 </div>
-                <div class="reveal delay-200 spotlight-card p-5 rounded-xl group">
+                <div class="reveal delay-200 p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-emerald-500/30 transition-colors group">
                     <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Hiring Speed</h4><i data-lucide="zap" class="w-4 h-4 text-emerald-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">3x</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Replace weeks of screening with a 30-min assessment.</p>
                 </div>
-                <div class="reveal delay-300 spotlight-card p-5 rounded-xl group">
+                <div class="reveal delay-300 p-5 border border-white/5 bg-[#0a0a0c] rounded-xl hover:border-amber-500/30 transition-colors group">
                     <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Retention Rate</h4><i data-lucide="users" class="w-4 h-4 text-amber-500"></i></div>
                     <div class="text-3xl font-bold text-white mb-2">+40%</div>
                     <p class="text-[10px] text-neutral-500 leading-snug">Candidates hired for cognitive fit stay longer.</p>
@@ -349,11 +347,11 @@
     </section>
 
     <!-- ARCHITECTURE -->
-    <section id="technology" class="py-24 bg-[#050505] z-10 relative">
+    <section id="technology" class="py-24 bg-[#030305] z-10 relative">
         <div class="container mx-auto px-6">
             <div class="mb-16 relative pl-6 border-l border-neutral-800 reveal">
                 <span class="font-mono text-xs text-neutral-500 mb-2 block tracking-[0.2em]">03 // THE STACK</span>
-                <h2 class="text-4xl md:text-6xl font-light text-metallic tracking-tight">The 9-Layer Architecture.</h2>
+                <h2 class="text-4xl md:text-6xl font-light text-white mb-2 tracking-tight">The 9-Layer Architecture.</h2>
                 <div class="h-1 w-20 bg-gradient-to-r from-cyan-600 to-transparent mt-4"></div>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
@@ -361,27 +359,27 @@
                 <div class="reveal">
                     <div class="border-b border-cyan-500/30 pb-4 mb-6"><h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="activity" class="text-cyan-500"></i> Neuro-Imaging</h3></div>
                     <div class="space-y-3">
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">01</div><div><h4 class="text-sm font-bold text-white">Cortical Dynamics (EEG)</h4><p class="text-xs text-neutral-500 mt-1">Millisecond-precision electrical monitoring.</p></div></div>
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">02</div><div><h4 class="text-sm font-bold text-white">Hemodynamics (fNIRS)</h4><p class="text-xs text-neutral-500 mt-1">Prefrontal oxygenation & workload tracking.</p></div></div>
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">03</div><div><h4 class="text-sm font-bold text-white">Autonomic (GSR)</h4><p class="text-xs text-neutral-500 mt-1">Skin conductance for emotional stress peaks.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-cyan-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">01</div><div><h4 class="text-sm font-bold text-white">Cortical Dynamics (EEG)</h4><p class="text-xs text-neutral-500 mt-1">Millisecond-precision electrical monitoring.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-cyan-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">02</div><div><h4 class="text-sm font-bold text-white">Hemodynamics (fNIRS)</h4><p class="text-xs text-neutral-500 mt-1">Prefrontal oxygenation & workload tracking.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-cyan-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">03</div><div><h4 class="text-sm font-bold text-white">Autonomic (GSR)</h4><p class="text-xs text-neutral-500 mt-1">Skin conductance for emotional stress peaks.</p></div></div>
                     </div>
                 </div>
                 <!-- Pillar 2 -->
                 <div class="reveal delay-100">
                     <div class="border-b border-indigo-500/30 pb-4 mb-6"><h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="mouse-pointer-2" class="text-indigo-500"></i> Behavioral Intel</h3></div>
                     <div class="space-y-3">
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">04</div><div><h4 class="text-sm font-bold text-white">Oculometrics</h4><p class="text-xs text-neutral-500 mt-1">Eye tracking for gaze fixation & attention spans.</p></div></div>
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">05</div><div><h4 class="text-sm font-bold text-white">Keystroke Dynamics</h4><p class="text-xs text-neutral-500 mt-1">Typing cadence, rhythm, and hesitation analysis.</p></div></div>
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">06</div><div><h4 class="text-sm font-bold text-white">Motor Kinetics</h4><p class="text-xs text-neutral-500 mt-1">Mouse trajectory smoothness & reaction velocity.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-indigo-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">04</div><div><h4 class="text-sm font-bold text-white">Oculometrics</h4><p class="text-xs text-neutral-500 mt-1">Eye tracking for gaze fixation & attention spans.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-indigo-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">05</div><div><h4 class="text-sm font-bold text-white">Keystroke Dynamics</h4><p class="text-xs text-neutral-500 mt-1">Typing cadence, rhythm, and hesitation analysis.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-indigo-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">06</div><div><h4 class="text-sm font-bold text-white">Motor Kinetics</h4><p class="text-xs text-neutral-500 mt-1">Mouse trajectory smoothness & reaction velocity.</p></div></div>
                     </div>
                 </div>
                 <!-- Pillar 3 -->
                 <div class="reveal delay-200">
                     <div class="border-b border-emerald-500/30 pb-4 mb-6"><h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="cpu" class="text-emerald-500"></i> Active & AI</h3></div>
                     <div class="space-y-3">
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">07</div><div><h4 class="text-sm font-bold text-white">Active Games</h4><p class="text-xs text-neutral-500 mt-1">Gamified N-Back tasks for memory stress testing.</p></div></div>
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">08</div><div><h4 class="text-sm font-bold text-white">SciML Core</h4><p class="text-xs text-neutral-500 mt-1">Scientific Machine Learning for pattern extraction.</p></div></div>
-                        <div class="spotlight-card p-4 flex items-start gap-4 rounded-lg"><div class="text-neutral-500 font-mono text-xs pt-1">09</div><div><h4 class="text-sm font-bold text-white">Predictive Engine</h4><p class="text-xs text-neutral-500 mt-1">Real-time performance forecasting & scoring.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-emerald-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">07</div><div><h4 class="text-sm font-bold text-white">Active Games</h4><p class="text-xs text-neutral-500 mt-1">Gamified N-Back tasks for memory stress testing.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-emerald-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">08</div><div><h4 class="text-sm font-bold text-white">SciML Core</h4><p class="text-xs text-neutral-500 mt-1">Scientific Machine Learning for pattern extraction.</p></div></div>
+                        <div class="bg-white/[0.02] border border-white/5 p-4 flex items-start gap-4 hover:border-emerald-500/30 transition-colors"><div class="text-neutral-500 font-mono text-xs pt-1">09</div><div><h4 class="text-sm font-bold text-white">Predictive Engine</h4><p class="text-xs text-neutral-500 mt-1">Real-time performance forecasting & scoring.</p></div></div>
                     </div>
                 </div>
             </div>
@@ -394,7 +392,7 @@
             <div class="flex flex-col md:flex-row justify-between items-end mb-12">
                 <div>
                     <h3 class="text-neutral-500 font-mono text-sm tracking-[0.2em] uppercase mb-4">Scientific Validation</h3>
-                    <h2 class="text-3xl md:text-4xl font-bold text-metallic">Backed by Peer-Reviewed Research.</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Backed by Peer-Reviewed Research.</h2>
                     <p class="text-neutral-400 mt-2 text-sm">Validating metrics for Fluid IQ, Creativity, Attention, and Decision Making.</p>
                 </div>
             </div>
@@ -481,7 +479,8 @@
                         </div>
                     </div>
 
-                    <button class="hover-trigger flex items-center gap-2 px-6 py-3 bg-violet-900/10 border border-violet-600/30 text-violet-500 font-mono text-xs uppercase tracking-widest hover:bg-violet-900/30 hover:border-violet-500 transition-all">
+                    <!-- REVISED BUTTON WITH BACKEND TRIGGER -->
+                    <button onclick="openModal('clearance')" class="hover-trigger flex items-center gap-2 px-6 py-3 bg-violet-900/10 border border-violet-600/30 text-violet-500 font-mono text-xs uppercase tracking-widest hover:bg-violet-900/30 hover:border-violet-500 transition-all">
                         <i data-lucide="lock" class="w-3 h-3"></i> Request Clearance
                     </button>
                 </div>
@@ -536,20 +535,6 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: HARDWARE ECOSYSTEM -->
-    <div class="w-full border-y border-white/5 bg-[#08080a] py-8 z-10 relative overflow-hidden">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <span class="text-neutral-500 font-mono text-xs uppercase tracking-widest whitespace-nowrap">Hardware Compatible With:</span>
-            <div class="flex flex-wrap justify-center gap-8 md:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="cpu" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">EMOTIV</span></div>
-                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="headphones" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">MUSE</span></div>
-                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="eye" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">TOBII</span></div>
-                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="activity" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">OpenBCI</span></div>
-                <div class="flex items-center gap-2 hover-trigger"><i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i> <span class="font-bold text-white text-lg tracking-tight">NVIDIA</span></div>
-            </div>
-        </div>
-    </div>
-
     <!-- NEW SECTION: PRIVACY VAULT -->
     <section class="py-12 bg-neutral-950/80 border-t border-white/5 z-10 relative">
         <div class="container mx-auto px-6 text-center">
@@ -574,13 +559,13 @@
             <div class="flex justify-between items-end mb-12 reveal">
                 <div>
                     <h3 class="text-neutral-500 font-mono text-sm tracking-[0.2em] uppercase mb-4">Leadership</h3>
-                    <h2 class="text-3xl md:text-4xl font-bold text-metallic">Visionary Minds.</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Visionary Minds.</h2>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Founder -->
-                <div class="reveal spotlight-card p-6 rounded-xl group hover:border-cyan-500/30 transition-colors">
+                <div class="reveal p-6 glass-panel rounded-xl group hover:border-cyan-500/30 transition-colors">
                     <div class="w-20 h-20 bg-neutral-800 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-cyan-500/50 transition-colors">
                         <img src="6266894401045381358.jpg" alt="Founder" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
                     </div>
@@ -593,7 +578,7 @@
                 </div>
 
                 <!-- Co-Founder 1 -->
-                <div class="reveal delay-100 spotlight-card p-6 rounded-xl group hover:border-indigo-500/30 transition-colors">
+                <div class="reveal delay-100 p-6 glass-panel rounded-xl group hover:border-indigo-500/30 transition-colors">
                     <div class="w-20 h-20 bg-neutral-800 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-indigo-500/50 transition-colors">
                         <img src="Agra.jpeg" alt="Co-Founder" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
                     </div>
@@ -606,7 +591,7 @@
                 </div>
 
                 <!-- Co-Founder 2 -->
-                <div class="reveal delay-300 spotlight-card p-6 rounded-xl group hover:border-amber-500/30 transition-colors">
+                <div class="reveal delay-300 p-6 glass-panel rounded-xl group hover:border-amber-500/30 transition-colors">
                     <div class="w-20 h-20 bg-neutral-800 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-amber-500/50 transition-colors">
                         <img src="ktmm.jpeg" alt="Co-Founder" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
                     </div>
@@ -619,7 +604,7 @@
                 </div>
 
                 <!-- Co-Founder 3 -->
-                <div class="reveal delay-200 spotlight-card p-6 rounded-xl group hover:border-emerald-500/30 transition-colors">
+                <div class="reveal delay-200 p-6 glass-panel rounded-xl group hover:border-emerald-500/30 transition-colors">
                     <div class="w-20 h-20 bg-neutral-800 rounded-full mb-6 overflow-hidden border border-white/10 group-hover:border-emerald-500/50 transition-colors">
                         <img src="Akshanh.jpeg" alt="Co-Founder" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
                     </div>
@@ -648,21 +633,44 @@
     <div id="lead-modal" class="fixed inset-0 z-[60] hidden modal-backdrop flex items-center justify-center p-4">
         <div class="bg-[#0a0a0c] border border-white/10 rounded-xl w-full max-w-md p-8 relative shadow-2xl scale-95 opacity-0 transition-all duration-300" id="modal-content">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-white cursor-none hover-trigger"><i data-lucide="x"></i></button>
+            
+            <!-- SECURITY SCANNING OVERLAY (Hidden by default) -->
+            <div id="modal-security-scan" class="hidden text-center py-8">
+                <div class="w-16 h-16 border-2 border-violet-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
+                    <i data-lucide="scan" class="w-8 h-8 text-violet-400"></i>
+                </div>
+                <h3 class="text-violet-400 font-bold animate-pulse" id="scan-text">INITIATING SECURE PROTOCOL...</h3>
+                <div class="security-line mt-4 w-1/2 mx-auto"></div>
+            </div>
+
+            <!-- FORM VIEW -->
             <div id="modal-form-view">
                 <div class="mb-6">
                     <span id="modal-context" class="text-[10px] font-mono text-cyan-500 uppercase tracking-widest border border-cyan-500/30 px-2 py-1 rounded">DEMO REQUEST</span>
                     <h3 class="text-2xl font-bold text-white mt-3" id="modal-title">Unlock Intelligence.</h3>
-                    <p class="text-neutral-400 text-sm mt-2">Enter your corporate email to access the Mindxcope platform.</p>
+                    <p class="text-neutral-400 text-sm mt-2" id="modal-desc">Enter your corporate email to access the Mindxcope platform.</p>
                 </div>
                 <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <!-- Standard Fields -->
                     <div><label class="block text-xs font-bold text-neutral-500 mb-1 uppercase">Work Email</label><input type="email" name="user_email" required class="w-full bg-black/50 border border-white/10 rounded p-3 text-white text-sm focus:border-cyan-500 focus:outline-none transition-colors cursor-none" placeholder="name@company.com"></div>
-                    <div><label class="block text-xs font-bold text-neutral-500 mb-1 uppercase">Company Name</label><input type="text" name="company_name" required class="w-full bg-black/50 border border-white/10 rounded p-3 text-white text-sm focus:border-cyan-500 focus:outline-none transition-colors cursor-none" placeholder="Acme Corp"></div>
-                    <button type="submit" class="hover-trigger w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded transition-all flex items-center justify-center gap-2"><span id="btn-text">Submit Request</span><i id="btn-icon" data-lucide="arrow-right" class="w-4 h-4"></i><div id="btn-spinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div></button>
+                    
+                    <!-- Dynamic Second Field -->
+                    <div id="field-company"><label class="block text-xs font-bold text-neutral-500 mb-1 uppercase">Company Name</label><input type="text" name="company_name" class="w-full bg-black/50 border border-white/10 rounded p-3 text-white text-sm focus:border-cyan-500 focus:outline-none transition-colors cursor-none" placeholder="Acme Corp"></div>
+                    
+                    <!-- Hidden Clearance Fields (Only shown for Clearance) -->
+                    <div id="field-clearance" class="hidden">
+                        <label class="block text-xs font-bold text-violet-500 mb-1 uppercase">Agency / Dept ID</label>
+                        <input type="text" name="agency_id" class="w-full bg-black/50 border border-violet-500/50 rounded p-3 text-white text-sm focus:border-violet-500 focus:outline-none transition-colors cursor-none" placeholder="ID-XXXX-88">
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="hover-trigger w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded transition-all flex items-center justify-center gap-2"><span id="btn-text">Submit Request</span><i id="btn-icon" data-lucide="arrow-right" class="w-4 h-4"></i><div id="btn-spinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div></button>
                 </form>
             </div>
+
+            <!-- SUCCESS VIEW -->
             <div id="modal-success-view" class="hidden text-center py-8">
                 <div class="w-16 h-16 bg-emerald-900/20 rounded-full flex items-center justify-center text-emerald-500 mx-auto mb-4"><i data-lucide="check" class="w-8 h-8"></i></div>
-                <h3 class="text-xl font-bold text-white mb-2">Request Received.</h3>
+                <h3 class="text-xl font-bold text-white mb-2" id="success-title">Request Received.</h3>
                 <p class="text-neutral-400 text-sm mb-6">Our intelligence team will contact you shortly.</p>
                 <button onclick="closeModal()" class="text-neutral-500 hover:text-white text-xs font-bold uppercase tracking-wider hover-trigger">Close Window</button>
             </div>
@@ -712,37 +720,85 @@
             el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
 
-        // 4. SPOTLIGHT EFFECT
-        const cards = document.querySelectorAll('.spotlight-card');
-        cards.forEach(card => {
-            card.onmousemove = e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            }
-        });
-
-        // 5. MODAL & EMAIL LOGIC
+        // 4. MODAL & EMAIL LOGIC (UPDATED FOR CLEARANCE)
         function openModal(context) {
             const modal = document.getElementById('lead-modal');
             const content = document.getElementById('modal-content');
             const tag = document.getElementById('modal-context');
             const title = document.getElementById('modal-title');
+            const desc = document.getElementById('modal-desc');
+            const formView = document.getElementById('modal-form-view');
+            const scanView = document.getElementById('modal-security-scan');
+            const btn = document.getElementById('submit-btn');
             
-            document.getElementById('modal-form-view').classList.remove('hidden');
+            // Reset Views
+            formView.classList.add('hidden'); // Start hidden
+            scanView.classList.add('hidden');
             document.getElementById('modal-success-view').classList.add('hidden');
             
-            if(context === 'demo') { tag.innerText = "DEMO REQUEST"; title.innerText = "Book a Hiring Demo"; }
-            else if(context === 'screening') { tag.innerText = "SCREENING ACCESS"; title.innerText = "Start Candidate Assessment"; }
-            else if(context === 'case-studies') { tag.innerText = "RESEARCH ACCESS"; title.innerText = "Download Case Studies"; }
+            // Reset Inputs
+            document.getElementById('field-company').classList.remove('hidden');
+            document.getElementById('field-clearance').classList.add('hidden');
+            btn.className = "hover-trigger w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded transition-all flex items-center justify-center gap-2";
 
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                content.classList.remove('scale-95', 'opacity-0');
-                content.classList.add('scale-100', 'opacity-100');
-            }, 10);
+            if(context === 'clearance') {
+                // SECURITY SIMULATION FLOW
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    content.classList.remove('scale-95', 'opacity-0');
+                    content.classList.add('scale-100', 'opacity-100');
+                }, 10);
+
+                scanView.classList.remove('hidden');
+                const scanText = document.getElementById('scan-text');
+                
+                setTimeout(() => { scanText.innerText = "VERIFYING ENCRYPTION..."; }, 800);
+                setTimeout(() => { scanText.innerText = "HANDSHAKE ESTABLISHED."; }, 1600);
+                
+                setTimeout(() => {
+                    scanView.classList.add('hidden');
+                    formView.classList.remove('hidden');
+                    
+                    // Specific Clearance UI
+                    tag.innerText = "TIER-1 SECURITY"; 
+                    tag.className = "text-[10px] font-mono text-violet-500 uppercase tracking-widest border border-violet-500/30 px-2 py-1 rounded";
+                    title.innerText = "Restricted Access.";
+                    desc.innerText = "Enter credentials for classified gene-ops briefing.";
+                    
+                    document.getElementById('field-company').classList.add('hidden');
+                    document.getElementById('field-clearance').classList.remove('hidden');
+                    
+                    btn.className = "hover-trigger w-full bg-violet-900 border border-violet-500 text-white font-bold py-3 rounded transition-all flex items-center justify-center gap-2 hover:bg-violet-800";
+                }, 2200);
+
+            } else {
+                // STANDARD FLOW
+                formView.classList.remove('hidden');
+                if(context === 'demo') { 
+                    tag.innerText = "DEMO REQUEST"; 
+                    tag.className = "text-[10px] font-mono text-cyan-500 uppercase tracking-widest border border-cyan-500/30 px-2 py-1 rounded";
+                    title.innerText = "Book a Hiring Demo"; 
+                    desc.innerText = "Enter your corporate email to access the Mindxcope platform.";
+                }
+                else if(context === 'screening') { 
+                    tag.innerText = "SCREENING ACCESS"; 
+                    tag.className = "text-[10px] font-mono text-cyan-500 uppercase tracking-widest border border-cyan-500/30 px-2 py-1 rounded";
+                    title.innerText = "Start Candidate Assessment"; 
+                    desc.innerText = "Begin a free trial assessment.";
+                }
+                else if(context === 'case-studies') { 
+                    tag.innerText = "RESEARCH ACCESS"; 
+                    tag.className = "text-[10px] font-mono text-cyan-500 uppercase tracking-widest border border-cyan-500/30 px-2 py-1 rounded";
+                    title.innerText = "Download Case Studies"; 
+                    desc.innerText = "We will send the PDF to your inbox.";
+                }
+
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    content.classList.remove('scale-95', 'opacity-0');
+                    content.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
         }
 
         function closeModal() {
@@ -762,9 +818,13 @@
             const btnText = document.getElementById('btn-text');
             const btnIcon = document.getElementById('btn-icon');
             const spinner = document.getElementById('btn-spinner');
+            const successTitle = document.getElementById('success-title');
             
+            // Check context for success message
+            const isClearance = document.getElementById('modal-context').innerText.includes('SECURITY');
+
             // Show Loading State
-            btnText.innerText = "Sending...";
+            btnText.innerText = isClearance ? "Transmitting..." : "Sending...";
             btnIcon.classList.add('hidden');
             spinner.classList.remove('hidden');
             
@@ -774,104 +834,20 @@
                 .then(function() {
                     document.getElementById('modal-form-view').classList.add('hidden');
                     document.getElementById('modal-success-view').classList.remove('hidden');
+                    if(isClearance) successTitle.innerText = "Encrypted Packet Sent.";
+                    else successTitle.innerText = "Request Received.";
                 }, function(error) {
                     console.log('FAILED...', error);
                     // Fallback for demo purposes if keys aren't set
                     document.getElementById('modal-form-view').classList.add('hidden');
                     document.getElementById('modal-success-view').classList.remove('hidden');
+                     if(isClearance) successTitle.innerText = "Encrypted Packet Sent.";
                 })
                 .finally(() => {
                     btnText.innerText = "Submit Request";
                     btnIcon.classList.remove('hidden');
                     spinner.classList.add('hidden');
                 });
-        }
-
-        // --- 6. 3D BRAIN POINT CLOUD (Vanilla JS Engine) ---
-        function initBrain3D() {
-            const canvas = document.getElementById('brain-3d-canvas');
-            if(!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let points = [];
-            
-            // 3D Brain Shape Logic
-            function initPoints() {
-                points = [];
-                const numPoints = 800; // Dense cloud
-                for(let i=0; i<numPoints; i++) {
-                    // Spherical distribution with adjustments for brain shape
-                    const theta = Math.random() * Math.PI * 2; // Azimuth
-                    const phi = Math.acos((Math.random() * 2) - 1); // Elevation
-                    const r = 100 + Math.random() * 10; // Radius with noise
-
-                    // Base Sphere
-                    let x = r * Math.sin(phi) * Math.cos(theta);
-                    let y = r * Math.sin(phi) * Math.sin(theta);
-                    let z = r * Math.cos(phi);
-
-                    // Morph into Brain Shape (approximate)
-                    x *= 1.2; // Length
-                    y *= 0.9; // Height
-                    z *= 0.95; // Width
-                    
-                    // Split hemispheres (gap in middle)
-                    if (z > 0) z += 5; else z -= 5;
-                    
-                    // Flatten bottom
-                    if (y > 40) y *= 0.8;
-
-                    points.push({x, y, z, ox:x, oy:y, oz:z});
-                }
-            }
-
-            function resize() {
-                const parent = canvas.parentElement;
-                width = parent.clientWidth;
-                height = parent.clientHeight;
-                canvas.width = width;
-                canvas.height = height;
-                initPoints();
-            }
-
-            let angleY = 0;
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                angleY += 0.005; // Auto rotation
-
-                // Projection Center
-                const cx = width / 2;
-                const cy = height / 2;
-                const fov = 350;
-
-                ctx.fillStyle = '#22d3ee'; // Cyan Dots
-
-                for(let i=0; i<points.length; i++) {
-                    let p = points[i];
-                    
-                    // Rotate Y
-                    let x = p.ox * Math.cos(angleY) - p.oz * Math.sin(angleY);
-                    let z = p.ox * Math.sin(angleY) + p.oz * Math.cos(angleY);
-                    let y = p.oy;
-
-                    // Project
-                    let scale = fov / (fov + z + 200);
-                    let x2d = x * scale + cx;
-                    let y2d = y * scale + cy;
-                    
-                    // Draw Point
-                    let size = (scale * 2);
-                    ctx.globalAlpha = scale; // Fade distant points
-                    ctx.beginPath();
-                    ctx.arc(x2d, y2d, size > 0 ? size : 0, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                requestAnimationFrame(animate);
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-            animate();
         }
 
         // --- Neural Cortex (Background) ---
@@ -977,7 +953,6 @@
         // --- Init ---
         document.addEventListener('DOMContentLoaded', () => {
             initNeuralCortex();
-            initBrain3D(); // NEW 3D BRAIN
             if(document.getElementById('dna-canvas')) initDNASimulation();
 
             // Text Scramble
