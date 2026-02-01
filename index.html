@@ -3,384 +3,419 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATL NEXUS | Radiant International School</title>
+<title>ATL NEXUS | Elite Edition</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* --- 1. PREMIUM VARIABLES --- */
+/* --- 1. LUXURY THEME VARIABLES --- */
 :root {
-    --bg-gradient: linear-gradient(135deg, #0f0524 0%, #1a0b38 50%, #2e1065 100%);
-    --glass-surface: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-highlight: rgba(255, 255, 255, 0.1);
+    --bg-dark: #050505;
+    --bg-gradient: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #050505 80%);
     
-    --primary: #8b5cf6; /* Violet */
-    --primary-glow: #a78bfa;
-    --accent: #f472b6; /* Pink */
+    --gold: #d4af37;
+    --gold-dim: rgba(212, 175, 55, 0.2);
+    --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f7ef8a 50%, #d4af37 100%);
+    
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.08);
+    
     --text-main: #ffffff;
-    --text-muted: #94a3b8;
+    --text-muted: #a0a0a0;
     
-    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    --font-head: 'Outfit', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-elite: 'Cinzel', serif;
+    --font-modern: 'Manrope', sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
 body {
-    background: var(--bg-gradient);
-    background-attachment: fixed;
+    background: var(--bg-dark);
+    background-image: var(--bg-gradient);
     color: var(--text-main);
-    font-family: var(--font-body);
-    min-height: 100vh;
+    font-family: var(--font-modern);
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
-/* Background Orbs Animation */
-.orb {
-    position: fixed; border-radius: 50%; filter: blur(100px); z-index: -1; opacity: 0.4;
-    animation: float 10s infinite alternate;
+/* Subtle Animated Mesh Background */
+.mesh {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -1;
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
 }
-.orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4c1d95; }
-.orb-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #be185d; animation-delay: -5s; }
-@keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(50px, 50px); } }
 
-/* --- 2. FLOATING HEADER --- */
+/* --- 2. HEADER --- */
 header {
     display: flex; justify-content: space-between; align-items: center;
-    width: 90%; max-width: 1200px; margin: 20px auto;
-    padding: 15px 30px;
-    background: rgba(15, 23, 42, 0.6);
+    padding: 1.5rem 4rem;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(5, 5, 5, 0.85);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 50px;
-    position: sticky; top: 20px; z-index: 100;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
 }
 
-.brand { display: flex; align-items: center; gap: 12px; }
-.brand i { font-size: 1.5rem; background: linear-gradient(45deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.brand h1 { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.5px; margin: 0; }
-.school-sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; border-left: 1px solid #444; padding-left: 10px; margin-left: 10px; }
+.brand { display: flex; align-items: center; gap: 15px; }
+.brand-logo {
+    font-size: 2rem;
+    background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+}
+.brand-text h1 { font-family: var(--font-elite); font-size: 1.5rem; letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
+.brand-text p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 3px; }
 
 .cart-btn {
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    color: white; padding: 10px 24px; border-radius: 30px; cursor: pointer;
-    font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
-    transition: 0.3s; display: flex; align-items: center; gap: 8px;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-}
-.cart-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6); }
-.badge { background: white; color: var(--primary); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; }
-
-/* --- 3. HERO SECTION --- */
-.hero { text-align: center; padding: 5rem 1rem; }
-.hero h2 {
-    font-family: var(--font-head); font-size: 3.5rem; font-weight: 800;
-    line-height: 1.1; margin-bottom: 1rem;
-    background: linear-gradient(to right, #fff, #cbd5e1);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
-
-/* --- 4. PREMIUM CARDS GRID --- */
-.container { max-width: 1200px; margin: 0 auto 5rem auto; padding: 0 20px; }
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.card {
-    background: var(--glass-surface);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 20px;
+    padding: 12px 28px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 2px;
+    font-family: var(--font-elite);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.4s ease;
+    display: flex; align-items: center; gap: 10px;
     position: relative;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     overflow: hidden;
 }
+.cart-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold-dim); }
+.badge { background: #fff; color: #000; font-family: var(--font-modern); font-weight: 800; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
 
+/* --- 3. HERO SECTION --- */
+.hero { text-align: center; padding: 6rem 1rem 4rem 1rem; position: relative; }
+.hero h2 {
+    font-family: var(--font-elite); font-size: 4rem; margin-bottom: 1.5rem;
+    background: linear-gradient(to bottom, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p {
+    font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.8;
+}
+.gold-line { width: 100px; height: 3px; background: var(--gold); margin: 2rem auto; border-radius: 2px; }
+
+/* --- 4. PROJECT SHOWCASE (New Feature) --- */
+.showcase { max-width: 1400px; margin: 0 auto 5rem auto; padding: 0 2rem; }
+.section-title {
+    font-family: var(--font-elite); font-size: 2rem; color: var(--gold);
+    margin-bottom: 2rem; text-align: center; letter-spacing: 2px;
+}
+
+.showcase-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;
+}
+
+.project-card {
+    background: var(--glass); border: var(--glass-border); padding: 30px;
+    border-radius: 4px; position: relative; overflow: hidden;
+    transition: 0.4s;
+}
+.project-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+.project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--gold); opacity: 0.5;
+}
+
+.project-card h3 { font-family: var(--font-elite); margin-bottom: 10px; font-size: 1.4rem; }
+.project-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.6; }
+.used-components { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+    font-size: 0.7rem; padding: 4px 10px; border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px; color: #fff; background: rgba(255,255,255,0.05);
+}
+
+/* --- 5. INVENTORY GRID --- */
+.container { max-width: 1400px; margin: 0 auto 5rem auto; padding: 0 2rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+
+.card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px; padding: 20px;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex; flex-direction: column;
+}
 .card:hover {
-    background: var(--glass-highlight);
-    border-color: rgba(139, 92, 246, 0.3);
-    transform: translateY(-10px);
-    box-shadow: var(--card-shadow);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    transform: translateY(-8px);
 }
 
-/* Image styling */
-.img-container {
-    height: 180px; width: 100%; border-radius: 16px; overflow: hidden; margin-bottom: 20px; position: relative;
+.img-frame {
+    height: 180px; width: 100%; border-radius: 8px; overflow: hidden;
+    margin-bottom: 20px; position: relative; border: 1px solid rgba(255,255,255,0.05);
 }
-.img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-.card:hover .img-container img { transform: scale(1.08); }
+.img-frame img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: desaturate(20%); }
+.card:hover .img-frame img { transform: scale(1.1); filter: desaturate(0%); }
 
-/* Stock Pill */
-.stock-pill {
+.stock-status {
     position: absolute; top: 10px; right: 10px;
-    background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px);
-    padding: 6px 12px; border-radius: 20px;
-    font-size: 0.75rem; font-weight: 700; font-family: var(--font-head);
-    z-index: 2; display: flex; align-items: center; gap: 5px;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    padding: 5px 10px; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); border-radius: 4px;
 }
-.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.st-ok { color: #4ade80; } .st-ok .dot { background: #4ade80; box-shadow: 0 0 10px #4ade80; }
-.st-low { color: #fbbf24; } .st-low .dot { background: #fbbf24; }
-.st-no { color: #f87171; } .st-no .dot { background: #f87171; }
+.st-ok { color: #50fa7b; border-bottom: 2px solid #50fa7b; }
+.st-low { color: #f1fa8c; border-bottom: 2px solid #f1fa8c; }
+.st-no { color: #ff5555; border-bottom: 2px solid #ff5555; }
 
-.card-content h3 { font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 5px; color: white; }
-.card-content .type { font-size: 0.8rem; text-transform: uppercase; color: var(--primary-glow); letter-spacing: 1px; font-weight: 600; margin-bottom: 15px; display: block; }
+.card h3 { font-family: var(--font-elite); font-size: 1.2rem; margin-bottom: 5px; color: var(--gold); }
+.card-meta { font-size: 0.8rem; color: #666; margin-bottom: 15px; display: block; }
 
-/* Controls */
 select {
     width: 100%; padding: 12px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    color: var(--text-main);
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: 0.3s;
+    background: rgba(0,0,0,0.5); border: 1px solid #333;
+    color: #fff; font-family: var(--font-modern);
+    margin-bottom: 12px; cursor: pointer; transition: 0.3s;
 }
-select:hover { border-color: var(--primary); }
+select:hover { border-color: var(--gold); }
 
 .add-btn {
-    width: 100%; padding: 14px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    color: white; font-weight: 600; font-family: var(--font-head);
-    border-radius: 12px; cursor: pointer; transition: 0.3s;
-    display: flex; justify-content: center; align-items: center; gap: 8px;
+    width: 100%; padding: 12px; margin-top: auto;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: white; font-family: var(--font-elite); font-weight: 600; letter-spacing: 1px;
+    cursor: pointer; transition: 0.3s;
 }
-.add-btn:hover:not(:disabled) {
-    background: var(--primary); border-color: var(--primary);
-}
-.add-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* --- 5. INFO CARDS --- */
-.info-section {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px;
-}
-.info-box {
-    background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border);
-    padding: 25px; border-radius: 20px; display: flex; align-items: flex-start; gap: 15px;
-}
-.info-box i { font-size: 1.5rem; color: var(--accent); background: rgba(244, 114, 182, 0.1); padding: 12px; border-radius: 12px; }
-.info-box h4 { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 5px; }
-.info-box p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0; }
+.add-btn:hover:not(:disabled) { background: var(--gold); color: black; border-color: var(--gold); }
+.add-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
 /* --- 6. FOOTER --- */
 footer {
-    text-align: center; padding: 3rem 0; margin-top: 3rem;
-    border-top: 1px solid var(--glass-border);
-    color: var(--text-muted); font-size: 0.9rem;
+    border-top: 1px solid #222; padding: 4rem 2rem; text-align: center;
+    background: #020202; color: #666;
 }
-.powered { color: white; font-weight: 600; }
+.footer-brand { font-family: var(--font-elite); font-size: 1.5rem; color: white; margin-bottom: 10px; }
 
-/* --- 7. CART SIDEBAR (Modern Drawer) --- */
+/* --- 7. SLIDE-OUT CART --- */
 .sidebar {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background: rgba(10, 5, 20, 0.95); backdrop-filter: blur(20px);
-    border-left: 1px solid var(--glass-border);
-    z-index: 200; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex; flex-direction: column; padding: 30px;
-    box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+    position: fixed; top: 0; right: -500px; width: 450px; height: 100vh;
+    background: #0a0a0c; border-left: 1px solid #222; z-index: 200;
+    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex; flex-direction: column; padding: 40px;
+    box-shadow: -30px 0 60px rgba(0,0,0,0.8);
 }
 .sidebar.active { right: 0; }
 
-.sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-.sidebar-header h2 { font-family: var(--font-head); font-size: 1.5rem; margin: 0; }
-.close-btn { cursor: pointer; background: rgba(255,255,255,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-.close-btn:hover { background: var(--danger, #ef4444); }
+.sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px; }
+.sidebar-header h2 { font-family: var(--font-elite); color: var(--gold); margin: 0; }
 
-.cart-items { flex: 1; overflow-y: auto; padding-right: 10px; }
+.cart-list { flex: 1; overflow-y: auto; }
 .cart-item {
-    background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; margin-bottom: 12px;
-    position: relative; border: 1px solid transparent;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px; border-bottom: 1px solid #222;
 }
-.cart-item:hover { border-color: rgba(255,255,255,0.1); }
-.checkout-btn {
-    width: 100%; padding: 16px; background: white; color: black;
-    border: none; border-radius: 14px; font-weight: 800; font-family: var(--font-head);
-    font-size: 1rem; cursor: pointer; margin-top: 20px; transition: 0.3s;
-}
-.checkout-btn:hover { background: var(--primary-glow); transform: scale(1.02); }
+.cart-item h4 { font-family: var(--font-elite); margin-bottom: 4px; }
+.cart-item small { color: #666; }
 
-/* --- 8. MODAL (Clean) --- */
+.checkout-btn {
+    width: 100%; padding: 18px; background: var(--gold); color: #000;
+    border: none; font-family: var(--font-elite); font-weight: 700; letter-spacing: 2px;
+    cursor: pointer; transition: 0.3s; margin-top: 20px;
+}
+.checkout-btn:hover { background: #fff; }
+
+/* --- 8. MODAL (With Class/Section) --- */
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
-    z-index: 300; display: none; justify-content: center; align-items: center;
+    background: rgba(0,0,0,0.9); z-index: 300; display: none;
+    justify-content: center; align-items: center; backdrop-filter: blur(10px);
 }
-.modal-overlay.active { display: flex; animation: fadeUp 0.3s ease; }
-.modal {
-    background: #1e1b4b; border: 1px solid var(--glass-border);
-    padding: 30px; border-radius: 24px; width: 400px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-}
-.input-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
-.input-group input, .input-group select {
-    width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
-    padding: 12px; border-radius: 10px; color: white; margin-bottom: 15px;
+.modal-overlay.active { display: flex; }
+.modal-content {
+    background: #0f0f12; border: 1px solid var(--gold); padding: 40px;
+    width: 500px; position: relative;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
 }
 
-@keyframes fadeUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; color: var(--gold); font-size: 0.8rem; margin-bottom: 8px; font-family: var(--font-elite); letter-spacing: 1px; }
+.form-group input, .form-group select {
+    width: 100%; padding: 12px; background: #050505; border: 1px solid #333;
+    color: white; font-family: var(--font-modern);
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+
+/* Utility */
+.close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; color: #666; }
+.close-modal:hover { color: #fff; }
+
 </style>
 </head>
 <body>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
+<div class="mesh"></div>
 
 <header>
     <div class="brand">
-        <i class="fa-solid fa-cube"></i>
-        <div>
+        <i class="fa-solid fa-atom brand-logo"></i>
+        <div class="brand-text">
             <h1>ATL NEXUS</h1>
+            <p>Radiant International School</p>
         </div>
-        <span class="school-sub">Radiant International School</span>
     </div>
     <div class="cart-btn" onclick="toggleCart()">
-        <span>Request Log</span>
+        <span>REQUISITION LOG</span>
         <div id="badge" class="badge">0</div>
     </div>
 </header>
 
 <section class="hero">
-    <h2>Innovate with Purpose.</h2>
-    <p>Premium component inventory for Radiant International School's Atal Tinkering Lab.<br>Select your hardware below to begin your project.</p>
+    <h2>Empowering Future Innovators</h2>
+    <div class="gold-line"></div>
+    <p>Access the elite hardware repository of the Atal Tinkering Lab. <br>Design, Build, and Execute your vision with precision components.</p>
+</section>
+
+<section class="showcase">
+    <div class="section-title">// HALL OF INNOVATION</div>
+    <div class="showcase-grid">
+        <div class="project-card">
+            <h3><i class="fa-solid fa-person-walking-with-cane" style="color:var(--gold)"></i> Smart Blind Stick</h3>
+            <p>An assistive device that detects obstacles using ultrasonic waves and alerts the user via buzzer vibrations.</p>
+            <div class="used-components">
+                <span class="pill">Arduino Uno</span>
+                <span class="pill">Ultrasonic Sensor</span>
+                <span class="pill">Buzzer</span>
+            </div>
+        </div>
+        <div class="project-card">
+            <h3><i class="fa-solid fa-hand-sparkles" style="color:var(--gold)"></i> Gesture Control Bot</h3>
+            <p>A wireless robot controlled by hand movements using an accelerometer and RF communication.</p>
+            <div class="used-components">
+                <span class="pill">Arduino Nano</span>
+                <span class="pill">MPU6050</span>
+                <span class="pill">L298N Driver</span>
+                <span class="pill">BO Motors</span>
+            </div>
+        </div>
+        <div class="project-card">
+            <h3><i class="fa-solid fa-cloud-showers-heavy" style="color:var(--gold)"></i> Auto-Irrigation</h3>
+            <p>IoT system that detects soil moisture levels and automatically waters plants when dry.</p>
+            <div class="used-components">
+                <span class="pill">NodeMCU</span>
+                <span class="pill">Soil Moisture Sensor</span>
+                <span class="pill">Relay Module</span>
+                <span class="pill">Water Pump</span>
+            </div>
+        </div>
+    </div>
 </section>
 
 <div class="container">
+    <div class="section-title">// COMPONENT VAULT</div>
     <div id="grid" class="grid"></div>
 </div>
 
-<div class="info-section">
-    <div class="info-box">
-        <i class="fa-regular fa-clock"></i>
-        <div>
-            <h4>Lab Access</h4>
-            <p>Mon - Sat: 08:00 AM - 02:00 PM. <br>Accessible during free periods.</p>
-        </div>
-    </div>
-    <div class="info-box">
-        <i class="fa-solid fa-shield-halved"></i>
-        <div>
-            <h4>Lab Protocol</h4>
-            <p>Handle components with anti-static care. Return items within 7 days.</p>
-        </div>
-    </div>
-    <div class="info-box">
-        <i class="fa-solid fa-chalkboard-user"></i>
-        <div>
-            <h4>Faculty In-Charge</h4>
-            <p>Mr. ATL Coordinator <br>Physics Department, RIS Patna.</p>
-        </div>
-    </div>
-</div>
-
 <footer>
-    <p>Powered by <span class="powered">ATL Innovation Cell</span></p>
-    <p>&copy; 2024 Radiant International School, Patna.</p>
+    <div class="footer-brand">ATL NEXUS</div>
+    <p>Excellence in Innovation • Radiant International School</p>
 </footer>
 
 <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
-        <h2>Your Selection</h2>
-        <div class="close-btn" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></div>
+        <h2>PENDING REQUESTS</h2>
+        <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer; color:var(--text-muted);"></i>
     </div>
-    <div id="cartItems" class="cart-items">
-        <div style="text-align:center; color:#64748b; margin-top:50px;">Cart is empty.</div>
+    <div id="cartItems" class="cart-list">
+        <p style="text-align:center; color:#444; margin-top:50px;">Log is empty.</p>
     </div>
-    <button class="checkout-btn" onclick="openModal()">Proceed to Request</button>
+    <button class="checkout-btn" onclick="openModal()">INITIALIZE ISSUE</button>
 </div>
 
 <div id="modal" class="modal-overlay">
-    <div class="modal">
-        <h3 style="font-family:var(--font-head); margin-bottom:5px; font-size:1.5rem;">Student Details</h3>
-        <p style="color:var(--text-muted); margin-bottom:20px; font-size:0.9rem;">Enter details to confirm issuance.</p>
-        
-        <form onsubmit="finish(event)">
-            <div class="input-group">
-                <label>Full Name</label>
-                <input type="text" id="sName" placeholder="e.g. Aditi Sharma" required>
+    <div class="modal-content">
+        <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
+        <h2 style="font-family:var(--font-elite); color:var(--gold); margin-bottom:10px;">Student Auth</h2>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:30px;">Enter credentials to finalize issuance.</p>
+
+        <form onsubmit="submitForm(event)">
+            <div class="form-group">
+                <label>FULL NAME</label>
+                <input type="text" id="sName" required placeholder="e.g. Aryan Gupta">
             </div>
-            <div class="input-group">
-                <label>Class</label>
-                <select id="sClass">
-                    <option>Class 6</option><option>Class 7</option><option>Class 8</option>
-                    <option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option>
-                </select>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>CLASS</label>
+                    <select id="sClass" required>
+                        <option value="">Select</option>
+                        <option>VI</option><option>VII</option><option>VIII</option>
+                        <option>IX</option><option>X</option><option>XI</option><option>XII</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>SECTION</label>
+                    <select id="sSection" required>
+                        <option value="">Select</option>
+                        <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option>
+                    </select>
+                </div>
             </div>
-            <div class="input-group">
-                <label>Admission Number</label>
-                <input type="text" id="sAdm" placeholder="RIS/2024/..." required>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>ADMISSION NO.</label>
+                    <input type="text" id="sAdm" required placeholder="RIS/...">
+                </div>
+                <div class="form-group">
+                    <label>ISSUE DATE</label>
+                    <input type="date" id="sDate" required>
+                </div>
             </div>
-            
-            <button class="add-btn" style="background:var(--primary); border:none; margin-top:10px;">Confirm Request</button>
-            <button type="button" class="add-btn" style="background:transparent; border-color:var(--glass-border); color:var(--text-muted); margin-top:10px;" onclick="closeModal()">Cancel</button>
+
+            <button class="checkout-btn" style="margin-top:10px;">CONFIRM REQUEST</button>
         </form>
     </div>
 </div>
 
 <script>
-/* --- DATA --- */
+/* --- CONFIGURATION --- */
 const inventory = [
-    { id:1, name:"Arduino Uno R3", type:"Controller", stock:12, img:"https://upload.wikimedia.org/wikipedia/commons/3/38/Arduino_Uno_-_R3.jpg" },
-    { id:2, name:"Ultrasonic Sensor", type:"Sensor", stock:25, img:"https://upload.wikimedia.org/wikipedia/commons/3/39/Ultrasonic_Sensor.jpg" },
-    { id:3, name:"Servo Motor", type:"Actuator", stock:6, img:"https://upload.wikimedia.org/wikipedia/commons/d/d3/Micro_servo.jpg" },
-    { id:4, name:"IR Sensor", type:"Sensor", stock:30, img:"https://m.media-amazon.com/images/I/41-b0w0-t1L.jpg" },
-    { id:5, name:"Jumper Wires", type:"Cable", stock:50, img:"https://m.media-amazon.com/images/I/6166K8K-nQL._AC_SL1000_.jpg" },
-    { id:6, name:"9V Battery Clip", type:"Power", stock:20, img:"https://m.media-amazon.com/images/I/51X-wB-w+LL.jpg" },
-    { id:7, name:"Motor Driver", type:"Controller", stock:0, img:"https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg" },
-    { id:8, name:"LCD 16x2 Display", type:"Screen", stock:8, img:"https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg" },
-    { id:9, name:"Rain Sensor", type:"Sensor", stock:10, img:"https://m.media-amazon.com/images/I/41y2w-w+LL.jpg" },
-    { id:10, name:"Raspberry Pi 4", type:"Computer", stock:3, img:"https://images.unsplash.com/photo-1629739884942-8678d13afddc?w=500" }
+    { id:1, name:"Arduino Uno R3", type:"Microcontroller", stock:15, img:"https://upload.wikimedia.org/wikipedia/commons/3/38/Arduino_Uno_-_R3.jpg" },
+    { id:2, name:"Ultrasonic Sensor", type:"Sensor Module", stock:25, img:"https://upload.wikimedia.org/wikipedia/commons/3/39/Ultrasonic_Sensor.jpg" },
+    { id:3, name:"Servo Motor MG995", type:"Actuator", stock:8, img:"https://upload.wikimedia.org/wikipedia/commons/d/d3/Micro_servo.jpg" },
+    { id:4, name:"Raspberry Pi 4", type:"Microcomputer", stock:3, img:"https://images.unsplash.com/photo-1629739884942-8678d13afddc?w=500" },
+    { id:5, name:"IR Proximity Sensor", type:"Sensor Module", stock:30, img:"https://m.media-amazon.com/images/I/41-b0w0-t1L.jpg" },
+    { id:6, name:"L298N Motor Driver", type:"Power Module", stock:0, img:"https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg" },
+    { id:7, name:"Jumper Wires (Set)", type:"Connectivity", stock:50, img:"https://m.media-amazon.com/images/I/6166K8K-nQL._AC_SL1000_.jpg" },
+    { id:8, name:"LCD 16x2 Display", type:"Output Module", stock:10, img:"https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg" }
 ];
 
+const projects = ["Smart Blind Stick", "Gesture Control Bot", "Auto-Irrigation", "Line Follower", "Home Automation", "Other"];
 let cart = [];
 
-/* --- INIT --- */
-function init() {
+/* --- INITIALIZATION --- */
+window.onload = () => {
+    renderGrid();
+    // Set default date to today
+    document.getElementById('sDate').valueAsDate = new Date();
+};
+
+function renderGrid() {
     const grid = document.getElementById('grid');
     grid.innerHTML = inventory.map(item => {
         let stockClass = item.stock > 10 ? 'st-ok' : (item.stock > 0 ? 'st-low' : 'st-no');
-        let stockText = item.stock > 0 ? `${item.stock} Available` : 'Out of Stock';
-        let btnDisabled = item.stock === 0 ? 'disabled' : '';
-        let btnText = item.stock === 0 ? 'Unavailable' : 'Add to Cart';
+        let stockText = item.stock > 0 ? `${item.stock} UNITS` : 'OUT OF STOCK';
+        let disabled = item.stock === 0 ? 'disabled' : '';
 
         return `
         <div class="card">
-            <div class="stock-pill ${stockClass}">
-                <span class="dot"></span> ${stockText}
-            </div>
-            <div class="img-container">
+            <span class="stock-status ${stockClass}">${stockText}</span>
+            <div class="img-frame">
                 <img src="${item.img}" alt="${item.name}">
             </div>
-            <div class="card-content">
-                <span class="type">${item.type}</span>
-                <h3>${item.name}</h3>
-                
-                <select id="proj-${item.id}" ${btnDisabled}>
-                    <option value="">Select Project Purpose...</option>
-                    <option>Line Follower Robot</option>
-                    <option>Smart Home Automation</option>
-                    <option>Obstacle Avoider</option>
-                    <option>Science Exhibition</option>
-                    <option>Other</option>
-                </select>
-                
-                <button class="add-btn" onclick="addToCart(${item.id})" ${btnDisabled}>
-                    <i class="fa-solid fa-plus"></i> ${btnText}
-                </button>
-            </div>
+            <span class="card-meta">${item.type}</span>
+            <h3>${item.name}</h3>
+            
+            <select id="sel-${item.id}" ${disabled}>
+                <option value="">Select Project Application...</option>
+                ${projects.map(p => `<option>${p}</option>`).join('')}
+            </select>
+            
+            <button class="add-btn" onclick="addToCart(${item.id})" ${disabled}>
+                ${item.stock===0 ? 'UNAVAILABLE' : 'ADD TO REQUEST'}
+            </button>
         </div>
         `;
     }).join('');
@@ -388,31 +423,42 @@ function init() {
 
 /* --- LOGIC --- */
 function addToCart(id) {
-    let item = inventory.find(i => i.id === id);
-    let select = document.getElementById(`proj-${id}`);
+    const item = inventory.find(i => i.id === id);
+    const select = document.getElementById(`sel-${id}`);
     
-    if(!select.value) return alert("Please select a Project Purpose first.");
-    if(cart.find(c => c.id === id)) return alert("Item already added.");
+    if(!select.value) return alert("Please select a Project Purpose.");
+    if(cart.find(c => c.id === id)) return alert("Item already in request log.");
     
     cart.push({...item, project: select.value});
     updateCartUI();
-    toggleCart(); // Open cart automatically
+    
+    const btn = event.target;
+    btn.innerHTML = "ADDED";
+    btn.style.background = "var(--gold)";
+    btn.style.color = "black";
+    setTimeout(() => {
+        btn.innerHTML = "ADD TO REQUEST";
+        btn.style.background = "";
+        btn.style.color = "";
+    }, 1500);
 }
 
 function updateCartUI() {
     document.getElementById('badge').innerText = cart.length;
-    const container = document.getElementById('cartItems');
+    const list = document.getElementById('cartItems');
     
     if(cart.length === 0) {
-        container.innerHTML = `<div style="text-align:center; color:#64748b; margin-top:50px;">Cart is empty.</div>`;
+        list.innerHTML = `<p style="text-align:center; color:#444; margin-top:50px;">Log is empty.</p>`;
         return;
     }
 
-    container.innerHTML = cart.map((c, i) => `
+    list.innerHTML = cart.map((c, i) => `
         <div class="cart-item">
-            <div style="font-weight:600; color:white;">${c.name}</div>
-            <div style="font-size:0.8rem; color:#94a3b8; margin-top:2px;">${c.project}</div>
-            <i class="fa-solid fa-trash" style="position:absolute; right:15px; top:15px; color:#ef4444; cursor:pointer;" onclick="remove(${i})"></i>
+            <div>
+                <h4 style="color:white">${c.name}</h4>
+                <small>Purpose: ${c.project}</small>
+            </div>
+            <i class="fa-solid fa-trash" style="color:#ff5555; cursor:pointer;" onclick="remove(${i})"></i>
         </div>
     `).join('');
 }
@@ -422,19 +468,33 @@ function toggleCart() { document.getElementById('sidebar').classList.toggle('act
 
 /* --- CHECKOUT --- */
 function openModal() {
-    if(cart.length === 0) return alert("Your cart is empty.");
+    if(cart.length === 0) return alert("No items to issue.");
     document.getElementById('modal').classList.add('active');
 }
 function closeModal() { document.getElementById('modal').classList.remove('active'); }
 
-function finish(e) {
+function submitForm(e) {
     e.preventDefault();
     const name = document.getElementById('sName').value;
-    alert(`Request Success!\n\nStudent: ${name}\n\nPlease visit the lab to collect your components.`);
-    cart = []; updateCartUI(); closeModal(); toggleCart();
+    const cls = document.getElementById('sClass').value;
+    const sec = document.getElementById('sSection').value;
+    const date = document.getElementById('sDate').value;
+    
+    // Decrease visual stock (Simulation)
+    cart.forEach(c => {
+        const item = inventory.find(i => i.id === c.id);
+        if(item) item.stock--;
+    });
+    
+    alert(`ISSUANCE SUCCESSFUL\n\nStudent: ${name}\nClass: ${cls} - ${sec}\nDate: ${date}\n\nPlease proceed to the Lab In-Charge.`);
+    
+    cart = [];
+    updateCartUI();
+    renderGrid();
+    closeModal();
+    toggleCart();
+    document.querySelector('form').reset();
 }
-
-init();
 </script>
 </body>
 </html>
