@@ -3,349 +3,330 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATL NEXUS | Elite Edition</title>
+<title>ATL NEXUS | Radiant International School</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* --- 1. LUXURY THEME VARIABLES --- */
+/* --- 1. PREMIUM VARIABLES --- */
 :root {
-    --bg-dark: #050505;
-    --bg-gradient: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #050505 80%);
+    --primary: #2563eb;       /* Royal Tech Blue */
+    --primary-dark: #1e40af;
+    --secondary: #0f172a;     /* Deep Navy */
+    --accent: #f59e0b;        /* Amber Gold */
+    --success: #10b981;       /* Emerald */
+    --danger: #ef4444;        /* Red */
     
-    --gold: #d4af37;
-    --gold-dim: rgba(212, 175, 55, 0.2);
-    --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f7ef8a 50%, #d4af37 100%);
+    --bg-body: #f8fafc;       /* Ceramic White */
+    --bg-card: #ffffff;
     
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-    --glass-highlight: rgba(255, 255, 255, 0.08);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 15px rgba(37, 99, 235, 0.2);
     
-    --text-main: #ffffff;
-    --text-muted: #a0a0a0;
-    
-    --font-elite: 'Cinzel', serif;
-    --font-modern: 'Manrope', sans-serif;
+    --radius: 16px;
+    --font: 'Plus Jakarta Sans', sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
 body {
-    background: var(--bg-dark);
-    background-image: var(--bg-gradient);
-    color: var(--text-main);
-    font-family: var(--font-modern);
-    overflow-x: hidden;
+    background-color: var(--bg-body);
+    font-family: var(--font);
+    color: var(--secondary);
     min-height: 100vh;
+    overflow-x: hidden;
+    /* Subtle Mesh Background */
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.05) 0px, transparent 50%);
 }
 
-/* Subtle Animated Mesh Background */
-.mesh {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: -1;
-    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-}
-
-/* --- 2. HEADER --- */
+/* --- 2. FLOATING NAVBAR --- */
 header {
+    position: sticky; top: 20px; z-index: 100;
+    max-width: 1400px; margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    padding: 15px 30px;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 4rem;
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(5, 5, 5, 0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    box-shadow: var(--shadow-md);
 }
 
-.brand { display: flex; align-items: center; gap: 15px; }
-.brand-logo {
-    font-size: 2rem;
-    background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo-icon {
+    width: 40px; height: 40px; background: var(--primary); color: white;
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; box-shadow: var(--shadow-glow);
 }
-.brand-text h1 { font-family: var(--font-elite); font-size: 1.5rem; letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
-.brand-text p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 3px; }
+.brand-text h1 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
+.brand-text p { font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
 
-.cart-btn {
-    padding: 12px 28px;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    border-radius: 2px;
-    font-family: var(--font-elite);
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.4s ease;
+.nav-right { display: flex; gap: 15px; align-items: center; }
+
+.cart-trigger {
+    background: var(--secondary); color: white;
+    padding: 12px 24px; border-radius: 12px;
+    font-weight: 600; cursor: pointer; transition: 0.3s;
     display: flex; align-items: center; gap: 10px;
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
 }
-.cart-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold-dim); }
-.badge { background: #fff; color: #000; font-family: var(--font-modern); font-weight: 800; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+.cart-trigger:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.25); }
+.badge {
+    background: var(--accent); color: white; font-size: 0.75rem;
+    padding: 2px 8px; border-radius: 6px; font-weight: 800;
+}
 
 /* --- 3. HERO SECTION --- */
-.hero { text-align: center; padding: 6rem 1rem 4rem 1rem; position: relative; }
+.hero {
+    text-align: center; padding: 6rem 1rem 4rem;
+    max-width: 900px; margin: 0 auto;
+}
+.hero-badge {
+    display: inline-block; background: #dbeafe; color: var(--primary);
+    padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;
+    margin-bottom: 1.5rem; letter-spacing: 0.5px;
+}
 .hero h2 {
-    font-family: var(--font-elite); font-size: 4rem; margin-bottom: 1.5rem;
-    background: linear-gradient(to bottom, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--secondary) 0%, #475569 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 .hero p {
-    font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.8;
-}
-.gold-line { width: 100px; height: 3px; background: var(--gold); margin: 2rem auto; border-radius: 2px; }
-
-/* --- 4. PROJECT SHOWCASE (New Feature) --- */
-.showcase { max-width: 1400px; margin: 0 auto 5rem auto; padding: 0 2rem; }
-.section-title {
-    font-family: var(--font-elite); font-size: 2rem; color: var(--gold);
-    margin-bottom: 2rem; text-align: center; letter-spacing: 2px;
+    font-size: 1.2rem; color: #64748b; line-height: 1.6;
 }
 
-.showcase-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;
-}
+/* --- 4. CARD GRID --- */
+.container { max-width: 1400px; margin: 0 auto 5rem; padding: 0 2rem; }
 
-.project-card {
-    background: var(--glass); border: var(--glass-border); padding: 30px;
-    border-radius: 4px; position: relative; overflow: hidden;
-    transition: 0.4s;
+.grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;
 }
-.project-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-.project-card::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-    background: var(--gold); opacity: 0.5;
-}
-
-.project-card h3 { font-family: var(--font-elite); margin-bottom: 10px; font-size: 1.4rem; }
-.project-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.6; }
-.used-components { display: flex; flex-wrap: wrap; gap: 8px; }
-.pill {
-    font-size: 0.7rem; padding: 4px 10px; border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 20px; color: #fff; background: rgba(255,255,255,0.05);
-}
-
-/* --- 5. INVENTORY GRID --- */
-.container { max-width: 1400px; margin: 0 auto 5rem auto; padding: 0 2rem; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
 
 .card {
-    background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 12px; padding: 20px;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    background: var(--bg-card); border-radius: 20px;
+    padding: 1.5rem; position: relative;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
     display: flex; flex-direction: column;
 }
 .card:hover {
-    border-color: rgba(212, 175, 55, 0.4);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
 }
 
-.img-frame {
-    height: 180px; width: 100%; border-radius: 8px; overflow: hidden;
-    margin-bottom: 20px; position: relative; border: 1px solid rgba(255,255,255,0.05);
+.stock-pill {
+    position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
+    padding: 6px 12px; border-radius: 30px;
+    font-size: 0.75rem; font-weight: 700;
+    box-shadow: var(--shadow-sm); border: 1px solid #f1f5f9;
 }
-.img-frame img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: desaturate(20%); }
-.card:hover .img-frame img { transform: scale(1.1); filter: desaturate(0%); }
+.st-high { color: var(--success); }
+.st-low { color: var(--accent); }
+.st-out { color: var(--danger); }
 
-.stock-status {
-    position: absolute; top: 10px; right: 10px;
-    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-    padding: 5px 10px; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); border-radius: 4px;
+.img-box {
+    height: 200px; border-radius: 12px; overflow: hidden;
+    background: #f1f5f9; margin-bottom: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
 }
-.st-ok { color: #50fa7b; border-bottom: 2px solid #50fa7b; }
-.st-low { color: #f1fa8c; border-bottom: 2px solid #f1fa8c; }
-.st-no { color: #ff5555; border-bottom: 2px solid #ff5555; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; mix-blend-mode: multiply; }
+.card:hover .img-box img { transform: scale(1.1); }
 
-.card h3 { font-family: var(--font-elite); font-size: 1.2rem; margin-bottom: 5px; color: var(--gold); }
-.card-meta { font-size: 0.8rem; color: #666; margin-bottom: 15px; display: block; }
+.card-info { flex: 1; display: flex; flex-direction: column; }
+.cat-tag { color: var(--primary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 5px; }
 
+/* Form Elements inside Card */
 select {
-    width: 100%; padding: 12px;
-    background: rgba(0,0,0,0.5); border: 1px solid #333;
-    color: #fff; font-family: var(--font-modern);
-    margin-bottom: 12px; cursor: pointer; transition: 0.3s;
+    width: 100%; padding: 12px; border-radius: 10px;
+    border: 1px solid #cbd5e1; background: #f8fafc;
+    color: var(--secondary); font-family: var(--font); margin: 15px 0;
+    cursor: pointer; transition: 0.2s;
 }
-select:hover { border-color: var(--gold); }
+select:focus { border-color: var(--primary); background: #fff; }
 
-.add-btn {
-    width: 100%; padding: 12px; margin-top: auto;
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-    color: white; font-family: var(--font-elite); font-weight: 600; letter-spacing: 1px;
-    cursor: pointer; transition: 0.3s;
+/* Button Interaction */
+.btn-add {
+    width: 100%; padding: 14px;
+    background: var(--bg-body); color: var(--secondary);
+    border: 2px solid #e2e8f0; border-radius: 12px;
+    font-weight: 700; cursor: pointer; transition: 0.3s;
+    font-family: var(--font); margin-top: auto;
+    display: flex; justify-content: center; align-items: center; gap: 8px;
 }
-.add-btn:hover:not(:disabled) { background: var(--gold); color: black; border-color: var(--gold); }
-.add-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-/* --- 6. FOOTER --- */
-footer {
-    border-top: 1px solid #222; padding: 4rem 2rem; text-align: center;
-    background: #020202; color: #666;
+.btn-add:hover:not(:disabled) {
+    border-color: var(--secondary); background: var(--secondary); color: white;
 }
-.footer-brand { font-family: var(--font-elite); font-size: 1.5rem; color: white; margin-bottom: 10px; }
+.btn-add:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* --- 7. SLIDE-OUT CART --- */
-.sidebar {
-    position: fixed; top: 0; right: -500px; width: 450px; height: 100vh;
-    background: #0a0a0c; border-left: 1px solid #222; z-index: 200;
-    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; padding: 40px;
-    box-shadow: -30px 0 60px rgba(0,0,0,0.8);
+/* Active/Success State for Button */
+.btn-add.active {
+    background-color: var(--success) !important;
+    border-color: var(--success) !important;
+    color: white !important;
+    animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.sidebar.active { right: 0; }
+@keyframes pop { 50% { transform: scale(1.05); } }
 
-.sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px; }
-.sidebar-header h2 { font-family: var(--font-elite); color: var(--gold); margin: 0; }
+/* --- 5. EXPANDED CART DRAWER (BIGGER) --- */
+.drawer {
+    position: fixed; top: 0; right: -600px;
+    width: 500px; /* Bigger Width */
+    height: 100vh;
+    background: #fff; z-index: 200;
+    box-shadow: -30px 0 60px rgba(0,0,0,0.15);
+    transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex; flex-direction: column;
+}
+.drawer.open { right: 0; }
 
-.cart-list { flex: 1; overflow-y: auto; }
-.cart-item {
+.drawer-header {
+    padding: 30px; border-bottom: 1px solid #f1f5f9;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 15px; border-bottom: 1px solid #222;
 }
-.cart-item h4 { font-family: var(--font-elite); margin-bottom: 4px; }
-.cart-item small { color: #666; }
+.drawer-header h2 { font-size: 1.5rem; margin: 0; }
+.close-btn { font-size: 1.5rem; cursor: pointer; color: #94a3b8; transition: 0.2s; }
+.close-btn:hover { color: var(--danger); transform: rotate(90deg); }
 
+.drawer-body { flex: 1; overflow-y: auto; padding: 30px; background: #f8fafc; }
+
+.cart-card {
+    background: white; padding: 20px; border-radius: 16px;
+    box-shadow: var(--shadow-sm); margin-bottom: 15px;
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #e2e8f0;
+}
+.cart-card h4 { font-size: 1rem; margin: 0 0 4px 0; }
+.cart-card p { font-size: 0.85rem; color: #64748b; margin: 0; }
+
+.drawer-footer { padding: 30px; background: white; border-top: 1px solid #f1f5f9; }
 .checkout-btn {
-    width: 100%; padding: 18px; background: var(--gold); color: #000;
-    border: none; font-family: var(--font-elite); font-weight: 700; letter-spacing: 2px;
-    cursor: pointer; transition: 0.3s; margin-top: 20px;
+    width: 100%; padding: 18px; background: var(--secondary); color: white;
+    border: none; border-radius: 14px; font-size: 1rem; font-weight: 700;
+    cursor: pointer; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+    transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px;
 }
-.checkout-btn:hover { background: #fff; }
+.checkout-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(15, 23, 42, 0.3); }
 
-/* --- 8. MODAL (With Class/Section) --- */
-.modal-overlay {
+/* --- 6. STUDENT MODAL --- */
+.overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); z-index: 300; display: none;
-    justify-content: center; align-items: center; backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px);
+    z-index: 300; display: none; justify-content: center; align-items: center;
 }
-.modal-overlay.active { display: flex; }
-.modal-content {
-    background: #0f0f12; border: 1px solid var(--gold); padding: 40px;
-    width: 500px; position: relative;
-    box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
+.overlay.active { display: flex; animation: fadeUp 0.3s ease; }
+
+.modal {
+    background: white; width: 500px; padding: 40px; border-radius: 24px;
+    box-shadow: var(--shadow-lg);
 }
-
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; color: var(--gold); font-size: 0.8rem; margin-bottom: 8px; font-family: var(--font-elite); letter-spacing: 1px; }
-.form-group input, .form-group select {
-    width: 100%; padding: 12px; background: #050505; border: 1px solid #333;
-    color: white; font-family: var(--font-modern);
+.input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.field { margin-bottom: 20px; }
+.field label { display: block; font-size: 0.85rem; font-weight: 700; color: #64748b; margin-bottom: 8px; }
+.field input, .field select {
+    width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px;
+    font-family: var(--font); outline: none; transition: 0.2s;
 }
-.form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+.field input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 
-/* Utility */
-.close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; color: #666; }
-.close-modal:hover { color: #fff; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+/* Footer */
+footer { text-align: center; color: #94a3b8; padding: 40px; border-top: 1px solid #e2e8f0; margin-top: 40px; }
+
+/* Responsive */
+@media(max-width: 600px) {
+    .drawer { width: 100%; }
+    .hero h2 { font-size: 2.5rem; }
+}
 </style>
 </head>
 <body>
 
-<div class="mesh"></div>
-
 <header>
     <div class="brand">
-        <i class="fa-solid fa-atom brand-logo"></i>
+        <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
         <div class="brand-text">
             <h1>ATL NEXUS</h1>
             <p>Radiant International School</p>
         </div>
     </div>
-    <div class="cart-btn" onclick="toggleCart()">
-        <span>REQUISITION LOG</span>
-        <div id="badge" class="badge">0</div>
+    <div class="nav-right">
+        <div class="cart-trigger" onclick="toggleDrawer()">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span>Requests</span>
+            <div id="badge" class="badge">0</div>
+        </div>
     </div>
 </header>
 
 <section class="hero">
-    <h2>Empowering Future Innovators</h2>
-    <div class="gold-line"></div>
-    <p>Access the elite hardware repository of the Atal Tinkering Lab. <br>Design, Build, and Execute your vision with precision components.</p>
-</section>
-
-<section class="showcase">
-    <div class="section-title">// HALL OF INNOVATION</div>
-    <div class="showcase-grid">
-        <div class="project-card">
-            <h3><i class="fa-solid fa-person-walking-with-cane" style="color:var(--gold)"></i> Smart Blind Stick</h3>
-            <p>An assistive device that detects obstacles using ultrasonic waves and alerts the user via buzzer vibrations.</p>
-            <div class="used-components">
-                <span class="pill">Arduino Uno</span>
-                <span class="pill">Ultrasonic Sensor</span>
-                <span class="pill">Buzzer</span>
-            </div>
-        </div>
-        <div class="project-card">
-            <h3><i class="fa-solid fa-hand-sparkles" style="color:var(--gold)"></i> Gesture Control Bot</h3>
-            <p>A wireless robot controlled by hand movements using an accelerometer and RF communication.</p>
-            <div class="used-components">
-                <span class="pill">Arduino Nano</span>
-                <span class="pill">MPU6050</span>
-                <span class="pill">L298N Driver</span>
-                <span class="pill">BO Motors</span>
-            </div>
-        </div>
-        <div class="project-card">
-            <h3><i class="fa-solid fa-cloud-showers-heavy" style="color:var(--gold)"></i> Auto-Irrigation</h3>
-            <p>IoT system that detects soil moisture levels and automatically waters plants when dry.</p>
-            <div class="used-components">
-                <span class="pill">NodeMCU</span>
-                <span class="pill">Soil Moisture Sensor</span>
-                <span class="pill">Relay Module</span>
-                <span class="pill">Water Pump</span>
-            </div>
-        </div>
-    </div>
+    <div class="hero-badge">⚡ Powered by Atal Innovation Mission</div>
+    <h2>Build the Future with<br>Elite Hardware.</h2>
+    <p>Select premium components from our lab repository for your next breakthrough project.</p>
 </section>
 
 <div class="container">
-    <div class="section-title">// COMPONENT VAULT</div>
     <div id="grid" class="grid"></div>
 </div>
 
 <footer>
-    <div class="footer-brand">ATL NEXUS</div>
-    <p>Excellence in Innovation • Radiant International School</p>
+    <p>&copy; 2024 Radiant International School, Patna. All Rights Reserved.</p>
 </footer>
 
-<div id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-        <h2>PENDING REQUESTS</h2>
-        <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer; color:var(--text-muted);"></i>
+<div id="drawer" class="drawer">
+    <div class="drawer-header">
+        <h2>Your Request Log</h2>
+        <div class="close-btn" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></div>
     </div>
-    <div id="cartItems" class="cart-list">
-        <p style="text-align:center; color:#444; margin-top:50px;">Log is empty.</p>
+    
+    <div id="cartItems" class="drawer-body">
+        <div style="text-align:center; color:#94a3b8; margin-top:80px;">
+            <i class="fa-solid fa-box-open" style="font-size:3rem; opacity:0.3; margin-bottom:10px;"></i>
+            <p>Your cart is empty.</p>
+        </div>
     </div>
-    <button class="checkout-btn" onclick="openModal()">INITIALIZE ISSUE</button>
+
+    <div class="drawer-footer">
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:700;">
+            <span>Total Items</span>
+            <span id="totalCount">0</span>
+        </div>
+        <button class="checkout-btn" onclick="openModal()">
+            Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
 </div>
 
-<div id="modal" class="modal-overlay">
-    <div class="modal-content">
-        <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
-        <h2 style="font-family:var(--font-elite); color:var(--gold); margin-bottom:10px;">Student Auth</h2>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:30px;">Enter credentials to finalize issuance.</p>
+<div id="modal" class="overlay">
+    <div class="modal">
+        <h2 style="margin-bottom:5px;">Student Details</h2>
+        <p style="color:#64748b; margin-bottom:25px;">Finalize your component request.</p>
 
-        <form onsubmit="submitForm(event)">
-            <div class="form-group">
-                <label>FULL NAME</label>
-                <input type="text" id="sName" required placeholder="e.g. Aryan Gupta">
+        <form onsubmit="finish(event)">
+            <div class="field">
+                <label>Student Name</label>
+                <input type="text" id="sName" placeholder="e.g. Rahul Kumar" required>
             </div>
-
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>CLASS</label>
+            
+            <div class="input-row">
+                <div class="field">
+                    <label>Class</label>
                     <select id="sClass" required>
                         <option value="">Select</option>
                         <option>VI</option><option>VII</option><option>VIII</option>
                         <option>IX</option><option>X</option><option>XI</option><option>XII</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>SECTION</label>
+                <div class="field">
+                    <label>Section</label>
                     <select id="sSection" required>
                         <option value="">Select</option>
                         <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option>
@@ -353,147 +334,151 @@ footer {
                 </div>
             </div>
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>ADMISSION NO.</label>
-                    <input type="text" id="sAdm" required placeholder="RIS/...">
+            <div class="input-row">
+                <div class="field">
+                    <label>Roll No.</label>
+                    <input type="text" id="sRoll" required>
                 </div>
-                <div class="form-group">
-                    <label>ISSUE DATE</label>
-                    <input type="date" id="sDate" required>
+                <div class="field">
+                    <label>Issue Date (Today)</label>
+                    <input type="date" id="sDate" required readonly>
                 </div>
             </div>
 
-            <button class="checkout-btn" style="margin-top:10px;">CONFIRM REQUEST</button>
+            <button class="checkout-btn">Confirm Request</button>
+            <button type="button" onclick="closeModal()" style="width:100%; padding:15px; background:transparent; border:none; color:#64748b; cursor:pointer; margin-top:10px;">Cancel</button>
         </form>
     </div>
 </div>
 
 <script>
-/* --- CONFIGURATION --- */
+/* --- 1. PREMIUM DATA --- */
 const inventory = [
-    { id:1, name:"Arduino Uno R3", type:"Microcontroller", stock:15, img:"https://upload.wikimedia.org/wikipedia/commons/3/38/Arduino_Uno_-_R3.jpg" },
-    { id:2, name:"Ultrasonic Sensor", type:"Sensor Module", stock:25, img:"https://upload.wikimedia.org/wikipedia/commons/3/39/Ultrasonic_Sensor.jpg" },
-    { id:3, name:"Servo Motor MG995", type:"Actuator", stock:8, img:"https://upload.wikimedia.org/wikipedia/commons/d/d3/Micro_servo.jpg" },
-    { id:4, name:"Raspberry Pi 4", type:"Microcomputer", stock:3, img:"https://images.unsplash.com/photo-1629739884942-8678d13afddc?w=500" },
-    { id:5, name:"IR Proximity Sensor", type:"Sensor Module", stock:30, img:"https://m.media-amazon.com/images/I/41-b0w0-t1L.jpg" },
-    { id:6, name:"L298N Motor Driver", type:"Power Module", stock:0, img:"https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg" },
-    { id:7, name:"Jumper Wires (Set)", type:"Connectivity", stock:50, img:"https://m.media-amazon.com/images/I/6166K8K-nQL._AC_SL1000_.jpg" },
-    { id:8, name:"LCD 16x2 Display", type:"Output Module", stock:10, img:"https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg" }
+    { id:1, name:"Arduino Uno R3", type:"Controller", stock:12, img:"https://upload.wikimedia.org/wikipedia/commons/3/38/Arduino_Uno_-_R3.jpg" },
+    { id:2, name:"Raspberry Pi 4", type:"Microcomputer", stock:3, img:"https://images.unsplash.com/photo-1629739884942-8678d13afddc?w=500" },
+    { id:3, name:"Lidar Sensor V2", type:"Advanced Sensor", stock:2, img:"https://m.media-amazon.com/images/I/51+u0w0-t1L.jpg" }, // Placeholder img
+    { id:4, name:"Drone Kit (F450)", type:"Robotics", stock:5, img:"https://m.media-amazon.com/images/I/61y8gB-w+LL.jpg" }, // Placeholder
+    { id:5, name:"Ultrasonic HC-SR04", type:"Sensor", stock:30, img:"https://upload.wikimedia.org/wikipedia/commons/3/39/Ultrasonic_Sensor.jpg" },
+    { id:6, name:"Servo MG995", type:"Actuator", stock:8, img:"https://upload.wikimedia.org/wikipedia/commons/d/d3/Micro_servo.jpg" },
+    { id:7, name:"3D Printer Filament (PLA)", type:"Material", stock:10, img:"https://m.media-amazon.com/images/I/6166K8K-nQL._AC_SL1000_.jpg" },
+    { id:8, name:"OLED Display 0.96", type:"Output", stock:15, img:"https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg" }
 ];
 
-const projects = ["Smart Blind Stick", "Gesture Control Bot", "Auto-Irrigation", "Line Follower", "Home Automation", "Other"];
 let cart = [];
 
-/* --- INITIALIZATION --- */
+/* --- 2. INIT & RENDER --- */
 window.onload = () => {
     renderGrid();
-    // Set default date to today
-    document.getElementById('sDate').valueAsDate = new Date();
+    document.getElementById('sDate').valueAsDate = new Date(); // Auto-fill date
 };
 
 function renderGrid() {
     const grid = document.getElementById('grid');
     grid.innerHTML = inventory.map(item => {
-        let stockClass = item.stock > 10 ? 'st-ok' : (item.stock > 0 ? 'st-low' : 'st-no');
-        let stockText = item.stock > 0 ? `${item.stock} UNITS` : 'OUT OF STOCK';
+        let stockClass = item.stock > 5 ? 'st-high' : (item.stock > 0 ? 'st-low' : 'st-out');
+        let stockText = item.stock > 0 ? `${item.stock} Available` : 'Out of Stock';
         let disabled = item.stock === 0 ? 'disabled' : '';
+        let btnText = item.stock === 0 ? 'Unavailable' : 'Add to Cart';
 
         return `
         <div class="card">
-            <span class="stock-status ${stockClass}">${stockText}</span>
-            <div class="img-frame">
-                <img src="${item.img}" alt="${item.name}">
+            <span class="stock-pill ${stockClass}">${stockText}</span>
+            <div class="img-box"><img src="${item.img}" alt="${item.name}"></div>
+            
+            <div class="card-info">
+                <span class="cat-tag">${item.type}</span>
+                <h3>${item.name}</h3>
+                
+                <select id="proj-${item.id}" ${disabled}>
+                    <option value="">Select Purpose...</option>
+                    <option>Line Follower</option>
+                    <option>Smart Home</option>
+                    <option>Drone Project</option>
+                    <option>3D Printing</option>
+                    <option>Other</option>
+                </select>
+
+                <button id="btn-${item.id}" class="btn-add" onclick="add(${item.id})" ${disabled}>
+                    <i class="fa-solid fa-plus"></i> <span>${btnText}</span>
+                </button>
             </div>
-            <span class="card-meta">${item.type}</span>
-            <h3>${item.name}</h3>
-            
-            <select id="sel-${item.id}" ${disabled}>
-                <option value="">Select Project Application...</option>
-                ${projects.map(p => `<option>${p}</option>`).join('')}
-            </select>
-            
-            <button class="add-btn" onclick="addToCart(${item.id})" ${disabled}>
-                ${item.stock===0 ? 'UNAVAILABLE' : 'ADD TO REQUEST'}
-            </button>
         </div>
         `;
     }).join('');
 }
 
-/* --- LOGIC --- */
-function addToCart(id) {
+/* --- 3. LOGIC & INTERACTIONS --- */
+function add(id) {
     const item = inventory.find(i => i.id === id);
-    const select = document.getElementById(`sel-${id}`);
+    const projSelect = document.getElementById(`proj-${id}`);
+    const btn = document.getElementById(`btn-${id}`);
+
+    if(!projSelect.value) return alert("Please select a project purpose first.");
+    if(cart.find(c => c.id === id)) return alert("Item already in cart.");
+
+    // Add to state
+    cart.push({...item, purpose: projSelect.value});
     
-    if(!select.value) return alert("Please select a Project Purpose.");
-    if(cart.find(c => c.id === id)) return alert("Item already in request log.");
+    // BUTTON ANIMATION (The "Colour Change" feature)
+    const originalText = btn.innerHTML;
+    btn.classList.add('active');
+    btn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Added!</span>`;
     
-    cart.push({...item, project: select.value});
-    updateCartUI();
-    
-    const btn = event.target;
-    btn.innerHTML = "ADDED";
-    btn.style.background = "var(--gold)";
-    btn.style.color = "black";
     setTimeout(() => {
-        btn.innerHTML = "ADD TO REQUEST";
-        btn.style.background = "";
-        btn.style.color = "";
+        btn.classList.remove('active');
+        btn.innerHTML = originalText;
     }, 1500);
+
+    updateCartDisplay();
 }
 
-function updateCartUI() {
+function updateCartDisplay() {
     document.getElementById('badge').innerText = cart.length;
-    const list = document.getElementById('cartItems');
+    document.getElementById('totalCount').innerText = cart.length;
     
+    const list = document.getElementById('cartItems');
     if(cart.length === 0) {
-        list.innerHTML = `<p style="text-align:center; color:#444; margin-top:50px;">Log is empty.</p>`;
+        list.innerHTML = `<div style="text-align:center; color:#94a3b8; margin-top:80px;">
+            <i class="fa-solid fa-box-open" style="font-size:3rem; opacity:0.3; margin-bottom:10px;"></i>
+            <p>Your cart is empty.</p></div>`;
         return;
     }
 
-    list.innerHTML = cart.map((c, i) => `
-        <div class="cart-item">
+    list.innerHTML = cart.map((c, idx) => `
+        <div class="cart-card">
             <div>
-                <h4 style="color:white">${c.name}</h4>
-                <small>Purpose: ${c.project}</small>
+                <h4>${c.name}</h4>
+                <p>Purpose: ${c.purpose}</p>
             </div>
-            <i class="fa-solid fa-trash" style="color:#ff5555; cursor:pointer;" onclick="remove(${i})"></i>
+            <i class="fa-solid fa-trash" style="color:#ef4444; cursor:pointer;" onclick="remove(${idx})"></i>
         </div>
     `).join('');
 }
 
-function remove(index) { cart.splice(index, 1); updateCartUI(); }
-function toggleCart() { document.getElementById('sidebar').classList.toggle('active'); }
+function remove(idx) { cart.splice(idx, 1); updateCartDisplay(); }
+function toggleDrawer() { document.getElementById('drawer').classList.toggle('open'); }
 
-/* --- CHECKOUT --- */
+/* --- 4. CHECKOUT --- */
 function openModal() {
-    if(cart.length === 0) return alert("No items to issue.");
+    if(cart.length === 0) return alert("Cart is empty.");
     document.getElementById('modal').classList.add('active');
 }
 function closeModal() { document.getElementById('modal').classList.remove('active'); }
 
-function submitForm(e) {
+function finish(e) {
     e.preventDefault();
     const name = document.getElementById('sName').value;
     const cls = document.getElementById('sClass').value;
     const sec = document.getElementById('sSection').value;
-    const date = document.getElementById('sDate').value;
     
-    // Decrease visual stock (Simulation)
-    cart.forEach(c => {
-        const item = inventory.find(i => i.id === c.id);
-        if(item) item.stock--;
-    });
-    
-    alert(`ISSUANCE SUCCESSFUL\n\nStudent: ${name}\nClass: ${cls} - ${sec}\nDate: ${date}\n\nPlease proceed to the Lab In-Charge.`);
+    alert(`Success! Items issued to:\n${name} (Class ${cls}-${sec})\n\nPlease collect items from the lab.`);
     
     cart = [];
-    updateCartUI();
-    renderGrid();
+    updateCartDisplay();
     closeModal();
-    toggleCart();
+    toggleDrawer();
     document.querySelector('form').reset();
+    document.getElementById('sDate').valueAsDate = new Date();
 }
 </script>
 </body>
