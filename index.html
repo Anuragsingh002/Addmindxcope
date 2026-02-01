@@ -3,496 +3,757 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATL Inventory Portal | Build The Future</title>
+<title>ATL NEXUS | Elite Inventory System</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* --- THEME CONFIGURATION --- */
+/* --- 1. CORE VARIABLES & RESET --- */
 :root {
-    --primary: #3b82f6;       /* Tech Blue */
-    --primary-hover: #2563eb;
-    --success: #10b981;       /* Green */
-    --danger: #ef4444;        /* Red */
-    --warning: #f59e0b;       /* Amber */
-    --bg: #0f172a;            /* Deep Dark Blue */
-    --card-bg: rgba(30, 41, 59, 0.7); /* Glass effect */
-    --border: rgba(255, 255, 255, 0.1);
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
+    --bg-deep: #050505;
+    --bg-panel: rgba(20, 20, 30, 0.6);
+    --primary: #00f3ff; /* Cyber Cyan */
+    --secondary: #7000ff; /* Neon Purple */
+    --accent: #ff0055; /* Laser Red */
+    --success: #00ff9d; /* Matrix Green */
+    --text-main: #ffffff;
+    --text-muted: #8b9bb4;
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --glow: 0 0 20px rgba(0, 243, 255, 0.3);
+    --font-tech: 'Rajdhani', sans-serif;
+    --font-body: 'Inter', sans-serif;
 }
 
-* { box-sizing: border-box; outline: none; }
+* { box-sizing: border-box; outline: none; scrollbar-width: thin; scrollbar-color: var(--primary) var(--bg-deep); }
 
 body {
     margin: 0;
-    font-family: 'Outfit', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+    font-family: var(--font-body);
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    overflow-x: hidden;
+    /* Animated Background */
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 25%), 
+        radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.1), transparent 25%);
     min-height: 100vh;
 }
 
-/* --- HEADER --- */
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a10; }
+::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 4px; }
+
+/* --- 2. HEADER & NAV --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 3rem;
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(5, 5, 5, 0.7);
+    border-bottom: var(--glass-border);
 }
 
 .logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
+    font-family: var(--font-tech);
+    font-size: 2rem;
     font-weight: 700;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #fff, var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex; align-items: center; gap: 10px;
 }
-.logo i { color: var(--primary); }
 
-.cart-btn {
+.cart-trigger {
     position: relative;
+    font-family: var(--font-tech);
+    font-weight: 700;
+    font-size: 1.1rem;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px;
-    border-radius: 12px;
+    padding: 10px 20px;
+    border: var(--glass-border);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.03);
     transition: 0.3s;
-    border: 1px solid transparent;
+    letter-spacing: 1px;
 }
-.cart-btn:hover { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+.cart-trigger:hover {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: var(--primary);
+    box-shadow: var(--glow);
+}
 
 .badge {
     position: absolute;
-    top: -5px; right: -5px;
-    background: var(--danger);
+    top: -8px; right: -8px;
+    background: var(--accent);
     color: white;
-    border-radius: 50%;
+    font-size: 0.7rem;
     width: 20px; height: 20px;
     display: flex; justify-content: center; align-items: center;
-    font-size: 0.7rem;
-    font-weight: bold;
-    border: 2px solid var(--bg);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
 }
 
-/* --- MAIN LAYOUT --- */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 2rem;
-}
-
-h2 { border-left: 4px solid var(--primary); padding-left: 15px; margin-bottom: 2rem; letter-spacing: -0.5px; }
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-/* --- PRODUCT CARD --- */
-.card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
+/* --- 3. HERO SECTION --- */
+.hero {
+    text-align: center;
+    padding: 6rem 1rem;
     position: relative;
     overflow: hidden;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+.hero h1 {
+    font-family: var(--font-tech);
+    font-size: 4rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    animation: fadeInDown 1s ease-out;
+}
+.hero h1 span { color: var(--primary); }
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 20px auto;
+    animation: fadeInUp 1s ease-out 0.2s backwards;
 }
 
-.card h3 { margin: 10px 0 5px 0; font-size: 1.2rem; }
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+}
+.stat-box {
+    border-left: 2px solid var(--secondary);
+    padding-left: 15px;
+    text-align: left;
+}
+.stat-num { display: block; font-size: 1.5rem; font-weight: bold; font-family: var(--font-tech); color: white; }
+.stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* --- 4. GRID LAYOUT --- */
+.container {
+    max-width: 1300px;
+    margin: 0 auto 4rem auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-family: var(--font-tech);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 10px;
+}
+.section-title::after {
+    content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--primary), transparent);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+/* --- 5. COMPONENT CARD --- */
+.card {
+    background: var(--bg-panel);
+    border: var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    display: flex; flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Image styling */
+.img-container {
+    height: 180px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(0,0,0,0.3);
+}
+
+.img-container img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover img { transform: scale(1.1); }
 
 /* Stock Indicator */
-.stock-badge {
-    font-size: 0.75rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-bottom: 10px;
-    font-weight: 600;
-    width: fit-content;
+.stock-pill {
+    position: absolute;
+    top: 10px; right: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: var(--font-tech);
+    z-index: 2;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
 }
-.st-high { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
-.st-low { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
-.st-out { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+.st-high { color: var(--success); border: 1px solid var(--success); box-shadow: 0 0 8px rgba(0,255,157,0.3); }
+.st-low { color: #ffae00; border: 1px solid #ffae00; }
+.st-out { color: var(--accent); border: 1px solid var(--accent); }
 
+.card h3 {
+    margin: 0 0 10px 0;
+    font-family: var(--font-tech);
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+}
+
+/* Form Elements inside Card */
 select {
-    background: #020617;
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 12px;
-    border-radius: 8px;
-    margin: 1rem 0;
     width: 100%;
-    cursor: pointer;
-}
-
-/* Add Button */
-.add-btn {
-    background: var(--primary);
-    color: white;
-    border: none;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--text-main);
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
     cursor: pointer;
-    font-weight: 600;
-    margin-top: auto;
     transition: 0.3s;
-    display: flex; justify-content: center; align-items: center; gap: 8px;
 }
-.add-btn:hover { background: var(--primary-hover); }
+select:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); }
 
-/* Button Success State (Green) */
-.add-btn.success {
-    background-color: var(--success) !important;
-    pointer-events: none; /* Prevent double click */
+.add-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(0,243,255,0.1), rgba(0,243,255,0));
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-family: var(--font-tech);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+    margin-top: auto;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+}
+
+.add-btn:hover:not(:disabled) {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 20px var(--primary);
 }
 
 .add-btn:disabled {
-    background: var(--border);
+    border-color: var(--text-muted);
     color: var(--text-muted);
     cursor: not-allowed;
+    background: rgba(255,255,255,0.02);
 }
 
-/* --- CART SIDEBAR --- */
+.add-btn.success {
+    background: var(--success);
+    color: #000;
+    border-color: var(--success);
+    box-shadow: 0 0 20px var(--success);
+}
+
+/* --- 6. CART SIDEBAR --- */
 .sidebar {
     position: fixed;
-    top: 0; right: -450px;
-    width: 400px;
-    max-width: 90%;
-    height: 100%;
-    background: #1e293b;
-    padding: 2rem;
-    box-shadow: -10px 0 40px rgba(0,0,0,0.8);
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    top: 0; right: -500px;
+    width: 450px;
+    max-width: 100%;
+    height: 100vh;
+    background: #0b0c15;
+    border-left: 1px solid var(--primary);
     z-index: 200;
+    transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     display: flex; flex-direction: column;
+    box-shadow: -20px 0 50px rgba(0,0,0,0.8);
 }
 .sidebar.active { right: 0; }
 
 .cart-header {
+    padding: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 1rem; margin-bottom: 1rem;
 }
+.cart-header h2 { margin: 0; font-family: var(--font-tech); color: var(--primary); }
 
-.cart-items { flex: 1; overflow-y: auto; }
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
 
 .cart-item {
     background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
     padding: 1rem;
-    margin-bottom: 0.8rem;
-    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+    position: relative;
+    animation: slideInRight 0.3s ease;
 }
 
-.cart-footer button {
-    width: 100%;
-    background: var(--success);
+.cart-item-title { font-weight: bold; font-family: var(--font-tech); font-size: 1.1rem; color: #fff; }
+.cart-item-meta { font-size: 0.85rem; color: var(--text-muted); margin: 5px 0; }
+.issue-date-label { display: block; font-size: 0.75rem; margin-top: 8px; color: var(--primary); }
+
+/* Date Input Styling */
+input[type="date"] {
+    background: #1a1a24;
+    border: 1px solid #333;
     color: white;
-    border: none; padding: 15px;
-    border-radius: 8px;
-    font-weight: bold; font-size: 1rem;
-    cursor: pointer; margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-top: 4px;
+    font-family: var(--font-tech);
+    width: 100%;
 }
-.cart-footer button:hover { filter: brightness(1.1); }
 
-/* --- STUDENT MODAL --- */
+.remove-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+.remove-btn:hover { transform: scale(1.2); text-shadow: 0 0 10px var(--accent); }
+
+.cart-footer {
+    padding: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.3);
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--success);
+    color: #000;
+    border: none;
+    font-weight: 800;
+    font-family: var(--font-tech);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    cursor: pointer;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: 0.3s;
+}
+.checkout-btn:hover { filter: brightness(1.2); box-shadow: 0 0 25px rgba(0, 255, 157, 0.4); }
+
+/* --- 7. MODAL --- */
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    display: none;
-    justify-content: center; align-items: center;
-    z-index: 300;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(8px);
+    display: none; justify-content: center; align-items: center; z-index: 300;
 }
-.modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
+.modal-overlay.active { display: flex; }
 
-.modal-content {
-    background: #1e293b;
-    padding: 2rem;
-    border-radius: 16px;
-    width: 90%; max-width: 500px;
-    border: 1px solid var(--border);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+.modal-box {
+    background: #0f0f16;
+    border: 1px solid var(--primary);
+    width: 500px;
+    max-width: 90%;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0, 243, 255, 0.15);
+}
+.modal-box::before {
+    content: ''; position: absolute; top: -2px; left: -2px;
+    width: 20px; height: 20px; border-top: 3px solid var(--primary); border-left: 3px solid var(--primary);
+}
+.modal-box::after {
+    content: ''; position: absolute; bottom: -2px; right: -2px;
+    width: 20px; height: 20px; border-bottom: 3px solid var(--primary); border-right: 3px solid var(--primary);
 }
 
-.form-group { margin-bottom: 1.2rem; }
-.form-group label { display: block; margin-bottom: 6px; color: var(--text-muted); font-size: 0.9rem; }
-.form-group input, .form-group select {
-    width: 100%; padding: 12px;
-    background: #020617; border: 1px solid var(--border);
-    border-radius: 6px; color: white;
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; color: var(--primary); font-family: var(--font-tech); margin-bottom: 8px; letter-spacing: 1px; }
+.form-input {
+    width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: white;
 }
+.form-input:focus { border-color: var(--primary); }
 
-.modal-actions { display: flex; gap: 10px; margin-top: 2rem; }
-.btn-cancel { background: transparent; border: 1px solid var(--border); color: white; flex: 1; padding: 10px; border-radius: 6px; cursor: pointer; }
-.btn-confirm { background: var(--primary); border: none; color: white; flex: 1; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+/* --- ANIMATIONS --- */
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
+/* Responsive */
+@media(max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
 }
 </style>
 </head>
-
 <body>
 
 <header>
-    <div class="logo"><i class="fa-solid fa-robot"></i> ATL Inventory</div>
-    <div class="cart-btn" onclick="toggleSidebar()">
-        <i class="fa-solid fa-box-open"></i>
+    <div class="logo"><i class="fa-solid fa-atom fa-spin" style="font-size:0.8em; margin-right:10px;"></i> ATL NEXUS</div>
+    <div class="cart-trigger" onclick="toggleCart()">
+        <i class="fa-solid fa-layer-group"></i> INVENTORY LOG
         <span id="cartBadge" class="badge">0</span>
     </div>
 </header>
 
+<div class="hero">
+    <h1>The Future <span style="color:white">Is Built</span> <span>Here</span></h1>
+    <p>Access premium components for elite robotics and IoT projects. <br>Select your hardware, define your purpose, and innovate.</p>
+    
+    <div class="hero-stats">
+        <div class="stat-box">
+            <span class="stat-num" id="totalStockDisplay">0</span>
+            <span class="stat-label">Units Available</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-num">Elite</span>
+            <span class="stat-label">Access Level</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-num">24/7</span>
+            <span class="stat-label">System Active</span>
+        </div>
+    </div>
+</div>
+
 <div class="container">
-    <h2>Available Components</h2>
+    <div class="section-title">HARDWARE REPOSITORY</div>
     <div id="productsGrid" class="grid"></div>
 </div>
 
 <div id="cartSidebar" class="sidebar">
     <div class="cart-header">
-        <h3>Request List</h3>
-        <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:1.5rem" onclick="toggleSidebar()"></i>
+        <h2><i class="fa-solid fa-microchip"></i> COMPONENT LOG</h2>
+        <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer; font-size:1.5rem; color:white;"></i>
     </div>
+    
     <div id="cartItems" class="cart-items">
-        <p style="text-align:center; color:var(--text-muted); margin-top:20px;">No items selected.</p>
-    </div>
+        </div>
+
     <div class="cart-footer">
-        <button onclick="openModal()">Proceed to Request</button>
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px; color:var(--text-muted); font-family:var(--font-tech);">
+            <span>TOTAL ITEMS</span>
+            <span id="cartTotalCount" style="color:white; font-weight:bold;">0</span>
+        </div>
+        <button class="checkout-btn" onclick="openModal()">INITIALIZE REQUEST <i class="fa-solid fa-angle-right"></i></button>
     </div>
 </div>
 
-<div id="studentModal" class="modal-overlay">
-    <div class="modal-content">
-        <h3 style="margin-top:0"><i class="fa-solid fa-id-card"></i> Student Details</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem">Please provide details to issue these components.</p>
-        
-        <form id="issueForm" onsubmit="submitRequest(event)">
+<div id="modal" class="modal-overlay">
+    <div class="modal-box">
+        <h2 style="font-family:var(--font-tech); color:var(--primary); margin-top:0;">USER AUTHENTICATION</h2>
+        <p style="color:var(--text-muted); margin-bottom:2rem;">Enter student credentials to finalize component issuance.</p>
+
+        <form id="checkoutForm" onsubmit="handleCheckout(event)">
             <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="sName" placeholder="Enter full name" required>
+                <label>OPERATOR NAME</label>
+                <input type="text" class="form-input" id="sName" placeholder="Full Name" required>
             </div>
-            
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                 <div class="form-group">
-                    <label>Class</label>
-                    <select id="sClass" required>
-                        <option value="">Select</option>
+                    <label>CLASS</label>
+                    <select class="form-input" id="sClass" required style="background:rgba(255,255,255,0.05); color:white;">
+                        <option value="">Select Level</option>
                         <option>VI</option><option>VII</option><option>VIII</option>
                         <option>IX</option><option>X</option><option>XI</option><option>XII</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Section</label>
-                    <select id="sSection" required>
-                        <option value="">Select</option>
+                    <label>SECTION</label>
+                    <select class="form-input" id="sSection" required style="background:rgba(255,255,255,0.05); color:white;">
+                        <option value="">Select Sector</option>
                         <option>A</option><option>B</option><option>C</option><option>D</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Admission Number</label>
-                <input type="text" id="sAdm" placeholder="e.g. 12345" required>
+                <label>ADMISSION ID</label>
+                <input type="text" class="form-input" id="sAdm" placeholder="ID Number" required>
             </div>
 
-            <div class="modal-actions">
-                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
-                <button type="submit" class="btn-confirm">Submit Request</button>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button type="button" onclick="closeModal()" style="flex:1; background:transparent; border:1px solid #333; color:white; padding:12px; cursor:pointer;">CANCEL</button>
+                <button type="submit" style="flex:1; background:var(--primary); border:none; color:black; font-weight:bold; cursor:pointer;">CONFIRM</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
-/* ---------- DATA & CONFIG ---------- */
+/* --- CONFIGURATION & DATA --- */
 const products = [
-    { id: 1, name: "Arduino Uno R3", stock: 12, projects: ["Line Follower", "Smart Home", "Obstacle Avoider"] },
-    { id: 2, name: "Raspberry Pi 4", stock: 3, projects: ["AI Camera", "Retro Console", "Mini Server"] },
-    { id: 3, name: "Ultrasonic Sensor", stock: 25, projects: ["Distance Measurer", "Radar System"] },
-    { id: 4, name: "Servo Motor MG995", stock: 0, projects: ["Robotic Arm", "Auto Door"] }, // Out of stock example
-    { id: 5, name: "Jumper Wires (M-M)", stock: 50, projects: ["General Circuitry"] },
-    { id: 6, name: "L298N Motor Driver", stock: 8, projects: ["RC Car", "Robot Chassis"] }
+    { 
+        id: 1, 
+        name: "Arduino Uno R3", 
+        image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", 
+        stock: 15, 
+        projects: ["Line Follower Robot", "Smart Home Automation", "Weather Station", "Obstacle Avoider", "Other (Custom Project)"] 
+    },
+    { 
+        id: 2, 
+        name: "Raspberry Pi 4 Model B", 
+        image: "https://images.unsplash.com/photo-1629739884942-8678d13afddc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", 
+        stock: 4, 
+        projects: ["AI Surveillance Camera", "Retro Gaming Console", "Media Server", "Python Coding Station", "Other (Custom Project)"] 
+    },
+    { 
+        id: 3, 
+        name: "Ultrasonic Sensor HC-SR04", 
+        image: "https://upload.wikimedia.org/wikipedia/commons/3/39/Ultrasonic_Sensor.jpg", 
+        stock: 25, 
+        projects: ["Distance Measurer", "Radar System", "Parking Assistant", "Smart Dustbin", "Other (Custom Project)"] 
+    },
+    { 
+        id: 4, 
+        name: "Servo Motor MG995", 
+        image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Micro_servo.jpg", 
+        stock: 8, 
+        projects: ["Robotic Arm", "Pan-Tilt Camera", "Automatic Door Lock", "Walking Robot", "Other (Custom Project)"] 
+    },
+    { 
+        id: 5, 
+        name: "ESP8266 WiFi Module", 
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/66/ESP8266_ESP-01_WiFi_Module.jpg", 
+        stock: 0, 
+        projects: ["IoT Cloud Logging", "Wireless Control", "Web Server", "Other (Custom Project)"] 
+    },
+    { 
+        id: 6, 
+        name: "L298N Motor Driver", 
+        image: "https://m.media-amazon.com/images/I/71X8gC7HlCL._AC_SL1500_.jpg", 
+        stock: 10, 
+        projects: ["RC Car Control", "Industrial Conveyor", "Stepper Motor Driver", "Other (Custom Project)"] 
+    },
+    { 
+        id: 7, 
+        name: "OLED Display 0.96\"", 
+        image: "https://m.media-amazon.com/images/I/61k8v9WkpmL._AC_SX679_.jpg", 
+        stock: 12, 
+        projects: ["Smart Watch Interface", "Status Monitor", "Digital Pong Game", "Other (Custom Project)"] 
+    },
+    { 
+        id: 8, 
+        name: "Jumper Wires (M-M/M-F)", 
+        image: "https://m.media-amazon.com/images/I/6166K8K-nQL._AC_SL1000_.jpg", 
+        stock: 50, 
+        projects: ["Circuit Prototyping", "Breadboard Connections", "Other (Custom Project)"] 
+    }
 ];
 
 let cart = [];
 
-/* ---------- RENDER PRODUCTS ---------- */
-function renderProducts() {
-    const grid = document.getElementById("productsGrid");
+/* --- INIT FUNCTIONS --- */
+function init() {
+    renderGrid();
+    updateTotalStock();
+}
+
+function updateTotalStock() {
+    const total = products.reduce((acc, curr) => acc + curr.stock, 0);
+    document.getElementById('totalStockDisplay').innerText = total;
+}
+
+/* --- RENDER GRID --- */
+function renderGrid() {
+    const grid = document.getElementById('productsGrid');
     
     grid.innerHTML = products.map((p, index) => {
         // Stock Logic
         let stockClass = "st-high";
-        let stockText = `${p.stock} In Stock`;
-        let btnDisabled = "";
-        let btnText = '<i class="fa-solid fa-plus"></i> Add to Cart';
-
-        if (p.stock === 0) {
+        let stockText = "IN STOCK";
+        let disabledAttr = "";
+        let btnText = `ADD TO SYSTEM`;
+        
+        if(p.stock === 0) {
             stockClass = "st-out";
-            stockText = "Out of Stock";
-            btnDisabled = "disabled";
-            btnText = "Unavailable";
+            stockText = "DEPLETED";
+            disabledAttr = "disabled";
+            btnText = "UNAVAILABLE";
         } else if (p.stock < 5) {
             stockClass = "st-low";
-            stockText = `Only ${p.stock} Left`;
+            stockText = `LOW STOCK: ${p.stock}`;
         }
 
         return `
         <div class="card">
-            <span class="stock-badge ${stockClass}">${stockText}</span>
+            <div class="stock-pill ${stockClass}">${stockText}</div>
+            <div class="img-container">
+                <img src="${p.image}" alt="${p.name}" loading="lazy">
+            </div>
             <h3>${p.name}</h3>
             
-            <select id="sel-${index}" ${btnDisabled}>
-                <option value="">Select Project Purpose...</option>
-                ${p.projects.map(pr => `<option>${pr}</option>`).join("")}
+            <select id="sel-${index}" ${disabledAttr}>
+                <option value="">// SELECT PURPOSE...</option>
+                ${p.projects.map(proj => `<option value="${proj}">${proj}</option>`).join('')}
             </select>
 
-            <button id="btn-${index}" class="add-btn" ${btnDisabled} onclick="addToCart(${index})">
-                ${btnText}
+            <button id="btn-${index}" class="add-btn" onclick="addToCart(${index})" ${disabledAttr}>
+                <i class="fa-solid fa-plus"></i> ${btnText}
             </button>
-        </div>`;
-    }).join("");
+        </div>
+        `;
+    }).join('');
 }
 
-/* ---------- CART FUNCTIONS ---------- */
+/* --- CART LOGIC --- */
 function addToCart(index) {
-    const p = products[index];
+    const product = products[index];
     const select = document.getElementById(`sel-${index}`);
     const btn = document.getElementById(`btn-${index}`);
-
+    
     // Validation
-    if (select.value === "") {
-        alert("Please select a project purpose first.");
-        select.focus();
+    if(!select.value) {
+        select.style.borderColor = "var(--accent)";
+        setTimeout(() => select.style.borderColor = "", 500);
         return;
     }
 
-    // Check Stock vs Cart Amount
-    const inCartCount = cart.filter(item => item.id === p.id).length;
-    if (inCartCount >= p.stock) {
-        alert("Cannot add more. Stock limit reached for this item.");
+    // Check Cart Limit vs Stock
+    const inCart = cart.filter(i => i.id === product.id).length;
+    if(inCart >= product.stock) {
+        alert("Stock limit reached for this unit.");
         return;
     }
 
-    // Add to Logic
+    // Add to Cart Array
+    const today = new Date().toISOString().split('T')[0];
     cart.push({
-        id: p.id,
-        name: p.name,
-        project: select.value
+        id: product.id,
+        name: product.name,
+        project: select.value,
+        issueDate: today
     });
 
-    // Button Animation (Visual Feedback)
-    const originalText = btn.innerHTML;
-    btn.innerHTML = `<i class="fa-solid fa-check"></i> Added!`;
+    // Visual Feedback
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = `<i class="fa-solid fa-check"></i> UPLOADED`;
     btn.classList.add("success");
-    
-    // Reset Select
-    select.value = "";
+    select.value = ""; // Reset dropdown
 
-    // Revert Button
     setTimeout(() => {
+        btn.innerHTML = originalContent;
         btn.classList.remove("success");
-        btn.innerHTML = originalText;
     }, 1500);
 
     updateCartUI();
 }
 
 function updateCartUI() {
-    const container = document.getElementById("cartItems");
-    const badge = document.getElementById("cartBadge");
-    
-    badge.innerText = cart.length;
+    const container = document.getElementById('cartItems');
+    const badge = document.getElementById('cartBadge');
+    const totalEl = document.getElementById('cartTotalCount');
 
-    if (cart.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px;">No items selected.</p>`;
+    badge.innerText = cart.length;
+    totalEl.innerText = cart.length;
+
+    if(cart.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:3rem;">
+            <i class="fa-solid fa-cube" style="font-size:3rem; opacity:0.2; margin-bottom:1rem;"></i><br>
+            SYSTEM EMPTY
+        </div>`;
         return;
     }
 
-    container.innerHTML = cart.map((item, i) => `
+    container.innerHTML = cart.map((item, index) => `
         <div class="cart-item">
-            <div>
-                <div style="font-weight:bold">${item.name}</div>
-                <small style="color:var(--text-muted)">${item.project}</small>
-            </div>
-            <i class="fa-solid fa-trash" style="color:var(--danger); cursor:pointer" onclick="removeFromCart(${i})"></i>
+            <i class="fa-solid fa-trash remove-btn" onclick="removeItem(${index})"></i>
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-meta"><span style="color:var(--primary)">//</span> ${item.project}</div>
+            
+            <label class="issue-date-label">ISSUE DATE:</label>
+            <input type="date" value="${item.issueDate}" onchange="updateDate(${index}, this.value)">
         </div>
-    `).join("");
+    `).join('');
 }
 
-function removeFromCart(index) {
+function updateDate(index, newDate) {
+    cart[index].issueDate = newDate;
+}
+
+function removeItem(index) {
     cart.splice(index, 1);
     updateCartUI();
 }
 
-function toggleSidebar() {
-    document.getElementById("cartSidebar").classList.toggle("active");
+/* --- MODAL & SIDEBAR --- */
+function toggleCart() {
+    document.getElementById('cartSidebar').classList.toggle('active');
 }
 
-/* ---------- CHECKOUT MODAL ---------- */
 function openModal() {
-    if (cart.length === 0) return alert("Your cart is empty.");
-    document.getElementById("studentModal").classList.add("active");
+    if(cart.length === 0) return alert("Inventory log is empty.");
+    document.getElementById('modal').classList.add('active');
 }
 
 function closeModal() {
-    document.getElementById("studentModal").classList.remove("active");
+    document.getElementById('modal').classList.remove('active');
 }
 
-function submitRequest(e) {
+function handleCheckout(e) {
     e.preventDefault();
+    const name = document.getElementById('sName').value;
     
-    // Get Data
-    const name = document.getElementById("sName").value;
-    const sClass = document.getElementById("sClass").value;
-    const section = document.getElementById("sSection").value;
-    const adm = document.getElementById("sAdm").value;
+    // Simulate Backend Process
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+    btn.innerText = "PROCESSING...";
+    
+    setTimeout(() => {
+        // Decrease Logic Stock
+        cart.forEach(c => {
+            const p = products.find(prod => prod.id === c.id);
+            if(p) p.stock--;
+        });
 
-    // Simulate Processing
-    console.log("Request Submitted:", { name, sClass, section, adm, items: cart });
-
-    // Update Local Stock (Visual Simulation)
-    cart.forEach(cItem => {
-        const prod = products.find(p => p.id === cItem.id);
-        if(prod) prod.stock--; 
-    });
-
-    // Clear UI
-    closeModal();
-    alert(`Success! Items issued to ${name} (${sClass}-${section}).`);
-    cart = [];
-    document.getElementById("issueForm").reset();
-    updateCartUI();
-    renderProducts(); // Re-render to show new stock levels
-    toggleSidebar();
+        alert(`ACCESS GRANTED.\n\nItems successfully allocated to Operator: ${name}\nPlease proceed to the Lab Assistant.`);
+        
+        // Reset
+        cart = [];
+        updateCartUI();
+        renderGrid(); // Re-render to show new stock visual
+        updateTotalStock();
+        document.getElementById('checkoutForm').reset();
+        closeModal();
+        toggleCart();
+        btn.innerText = originalText;
+    }, 1500);
 }
 
-/* ---------- INIT ---------- */
-renderProducts();
+// Start
+init();
 </script>
-
 </body>
 </html>
