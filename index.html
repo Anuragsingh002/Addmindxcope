@@ -202,7 +202,7 @@ footer {
 }
 .modal-bg.active { display: flex; }
 .modal-content {
-    background: var(--bg-card); width: 500px; padding: 40px; border-radius: 12px;
+    background: var(--bg-card); width: 550px; padding: 40px; border-radius: 12px;
     border: 1px solid var(--gold);
 }
 .form-group { margin-bottom: 20px; }
@@ -315,10 +315,17 @@ footer {
             <i class="fa-solid fa-xmark" style="color:#666; cursor:pointer;" onclick="closeModal()"></i>
         </div>
         <form onsubmit="finish(event)">
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="sName" placeholder="Enter your name" required>
+            <div style="display:grid; grid-template-columns: 2fr 1fr; gap:15px;">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="sName" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Admission No.</label>
+                    <input type="text" id="sAdm" placeholder="e.g. 24056" required>
+                </div>
             </div>
+
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
                 <div class="form-group">
                     <label>Class</label>
@@ -336,9 +343,10 @@ footer {
                     </select>
                 </div>
             </div>
+            
             <div class="form-group">
-                <label>Return Date (Auto-calculated)</label>
-                <input type="date" id="returnDate" required>
+                <label>Return Date (Auto-calculated: 1 Month)</label>
+                <input type="date" id="returnDate" required readonly style="cursor: not-allowed; opacity: 0.7;">
             </div>
             <button class="checkout-btn">Submit Request</button>
         </form>
@@ -372,7 +380,8 @@ window.onload = () => {
 
 function setupDate() {
     const today = new Date();
-    today.setDate(today.getDate() + 7); // Default 7 days return
+    // UPDATED: Set date to exactly 1 month from today
+    today.setMonth(today.getMonth() + 1);
     document.getElementById('returnDate').valueAsDate = today;
 }
 
@@ -487,14 +496,18 @@ function closeModal() { document.getElementById('modal').classList.remove('activ
 function finish(e) {
     e.preventDefault();
     const name = document.getElementById('sName').value;
+    // UPDATED: Get admission number
+    const adm = document.getElementById('sAdm').value;
     const date = document.getElementById('returnDate').value;
     
-    alert(`Success! \n\nStudent: ${name}\nItems reserved: ${cart.length}\nPlease return by: ${date}`);
+    // UPDATED: Show admission number in alert
+    alert(`Success! \n\nStudent: ${name}\nAdm No: ${adm}\nItems reserved: ${cart.length}\nPlease return by: ${date}`);
     
     cart = [];
     updateCart();
     closeModal();
     document.querySelector('form').reset();
+    setupDate(); // Reset date for next user
 }
 </script>
 </body>
